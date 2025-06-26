@@ -1,6 +1,7 @@
 import numpy as np
 import pandas as pd
 import glob
+import sys 
 import os
 import matplotlib.pyplot as plt
 import xgboost as xgb
@@ -40,10 +41,19 @@ from sklearn.preprocessing import LabelEncoder
 # PER: Player Efficiency Rating — overall rating of a player’s per-minute statistical production (league average is 15.0).
 
 
+#The following is an XGboost model set to pairwise ranking only american college players. Run with model.py <test file name in Player Data>. Rudimentary testing but it will just exclude your test file from training. 
+
+if len(sys.argv) != 2:
+    print("Usage: python script.py <test_csv_filename>")
+    sys.exit(1)
+
+test_file_name = sys.argv[1]
 
 path = "playerData/"
 pattern = os.path.join(path, "college_players_career_stats_*.csv")
-files = glob.glob(pattern)
+all_files = glob.glob(pattern)
+
+files = [f for f in all_files if not f.endswith(test_file_name)] #excluding the test file
 
 dfs = []
 for file in files:
@@ -57,7 +67,7 @@ combined_df = pd.concat(dfs, ignore_index=True)
 combined_df = combined_df.drop(columns=["Draft Trades", "Age_y", "Class", "Season", "School"])
 # 999 labels as not picked
 combined_df["Pick"] = combined_df["Pick"].replace(0,999)
-combined_df["label"] = -combined_df["Pick"] #make a new column label which is just neg pick 
+combined_df["label"] = -combined_df["Pick"] #make a new column label which is just negative pick 
 
 team_le = LabelEncoder()
 pos_le = LabelEncoder()
@@ -106,7 +116,9 @@ model = xgb.train(params, trained, num_boost_round=50)
 
 
 #Format Test data HARDCODED FOR 2022 this line is 
-pre_tested_players = pd.read_csv("college_players_career_stats_2022.csv") 
+test_path = os.path.join(path, test_file_name)
+pre_tested_players = pd.read_csv(test_path)
+
 pre_tested_players = pre_tested_players.drop(columns=["Draft Trades", "Age_y", "Class", "Season", "School"])
 
 names_and_picks_pre_tested = pre_tested_players[["Player", "Pick"]].copy() #keep names and indexes 
@@ -120,7 +132,7 @@ pre_tested_players.to_csv("combined_player_data_with_labels_TEST_DATA.csv", inde
 
 pre_tested_players.replace('-', pd.NA, inplace=True)
 
-pre_tested_player_NAMES_SAVED = pre_tested_players["Player"].copy() #names get fucking cleansed
+pre_tested_player_NAMES_SAVED = pre_tested_players["Player"].copy() #na
 
 # Convert all columns to numeric, forcing anything bad to NaN
 for col in pre_tested_players.columns:
@@ -141,7 +153,7 @@ tested_players["PREDICTION"] = predictions
 tested_players["Player"] = pre_tested_player_NAMES_SAVED 
 
 
-tested_players = tested_players.sort_values(by="PREDICTION", ascending=False) #DONT SORT THIS RIGHT NOW IT WILL FUCK ANALYSIS UP 
+tested_players = tested_players.sort_values(by="PREDICTION", ascending=False) #DONT SORT UNTIL RIGHT NOW IT WILL FUCK ANALYSIS UP 
 
 tested_players["RowIndex"] = range(1, len(tested_players) + 1) #add indexes to tested list because we want to compare draft picks
 
@@ -150,12 +162,7 @@ tested_players.to_csv("TESTED.csv", index=False)
 #print(pre_tested_players.head())
 #print(combined_df.head())
 
-
-
-
-
 #ANALYSIS
-
 #new pandas dataframe with: name. need name in both tested and pre tested. need predicted index from tested. need actual pick from pre tested. 
 
 print(names_and_picks_pre_tested)
@@ -173,29 +180,22 @@ merged_names_and_picks = pd.merge(
 
 merged_names_and_picks = merged_names_and_picks.rename(columns={"RowIndex": "Predicted Pick", "Pick": "Actual Pick"})
 
+merged_names_and_picks["Error (pick distance)"] = (merged_names_and_picks["Predicted Pick"] - merged_names_and_picks["Actual Pick"]).abs()
+
 print(merged_names_and_picks)
 
-
-
-
-
-
-
-
-
-plt.figure(figsize=(10, 8))
+print("Mean AVG pick error (for now this is a very unfavorably skewed metric):",merged_names_and_picks["Error (pick distance)"].mean()) 
 
 # Scatter plot
+plt.figure(figsize=(10, 8))
 plt.scatter(merged_names_and_picks["Actual Pick"], merged_names_and_picks["Predicted Pick"], alpha=0.8)
 
-# Diagonal "perfect prediction" line
 plt.plot([1, 60], [1, 60], linestyle='--', color='gray', label="Perfect Prediction")
 
-# Annotate each point with player name
 for _, row in merged_names_and_picks.iterrows():
     plt.text(
-        row["Actual Pick"] + 0.5,  # X offset
-        row["Predicted Pick"] + 0.5,  # Y offset
+        row["Actual Pick"] + 0.5,  
+        row["Predicted Pick"] + 0.5,  
         row["Player"],
         fontsize=8
     )
