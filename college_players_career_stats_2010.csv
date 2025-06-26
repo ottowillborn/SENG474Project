@@ -1,0 +1,110 @@
+Pick,Player,Team,Draft Trades,Pos,HT,WT,Age_x,Pre-Draft Team,Nationality,Season,Age_y,School,Class,GP,TS%,eFG%,ORB%,DRB%,TRB%,AST%,TOV%,STL%,BLK%,USG%,Total S %,PPR,PPS,ORtg,DRtg,PER
+1,John Wall,WAS,,PG,6-3,210,19,Kentucky,United States,,,,,,,,,,,,,,,,,,,,,
+2,Evan Turner,PHL,,GF,6-7,220,21,Ohio State,United States,,,,,,,,,,,,,,,,,,,,,
+3,Derrick Favors,NJN,,FC,6-10,265,18,Georgia Tech,United States,CAREER,,NCAA DI,,36,.621,.611,12.4,20.5,16.6,7.9,20.0,1.9,8.1,21.8,124.0,-6.4,1.5,111.6,88.1,23.1
+4,Wesley Johnson,MIN,,GF,6-7,215,22,Syracuse,United States,CAREER,,NCAA DI,,93,.555,.518,8.5,16.4,12.6,10.8,14.7,2.2,3.8,23.5,157.1,-3.4,1.3,109.9,94.5,20.2
+5,DeMarcus Cousins,SAC,,C,6-11,270,19,Kentucky,United States,CAREER,,NCAA DI,,38,.580,.560,19.8,25.0,22.6,9.2,13.6,2.4,7.5,30.5,133.2,-5.6,1.6,118.5,83.5,32.1
+6,Ekpe Udoh,GOS,,PF,6-10,245,23,Baylor,United States/Nigeria,CAREER,,NCAA DI,,103,.511,.481,11.1,15.6,13.4,11.4,15.1,1.8,11.5,18.6,141.0,-1.8,1.2,108.5,94.7,19.6
+7,Greg Monroe,DET,,FC,6-11,265,20,Georgetown,United States,CAREER,,NCAA DI,,65,.584,.550,8.6,21.5,15.5,20.9,19.0,2.9,5.0,24.9,149.2,-2.5,1.5,111.7,92.5,23.8
+8,Al-Farouq Aminu,LAC,,F,6-9,220,19,Wake Forest,United States/Nigeria,CAREER,,NCAA DI,,62,.541,.495,12.0,20.3,16.3,9.0,17.9,2.2,4.3,24.9,140.1,-6.0,1.4,106.2,91.2,21.0
+9,Gordon Hayward,UTH,,GF,6-7,225,20,Butler,United States,CAREER,,NCAA DI,,69,.624,.562,6.7,21.0,14.1,13.0,14.8,2.5,3.1,22.4,166.3,-2.6,1.6,121.7,88.7,23.5
+10,Paul George,IND,,GF,6-8,220,20,Fresno State,United States,CAREER,,NCAA DI,,63,.579,.532,6.5,16.6,11.6,16.6,17.1,3.6,3.0,24.7,164.6,-3.4,1.4,109.3,96.7,21.3
+11,Cole Aldrich,NOP,NOP to OKC,C,6-11,253,21,Kansas,United States,CAREER,,NCAA DI,,111,.612,.574,13.0,27.4,20.7,5.7,13.6,1.5,11.7,20.7,130.4,-3.6,1.5,122.9,82.8,26.5
+12,Xavier Henry,MEM,,G,6-6,220,19,Kansas,United States,CAREER,,NCAA DI,,36,.591,.555,5.1,11.5,8.6,9.8,14.4,3.2,1.8,23.4,165.8,-3.3,1.4,115.8,92.6,20.1
+13,Ed Davis,TOR,,PF,6-9,218,21,North Carolina,United States,CAREER,,NCAA DI,,117,.531,.494,9.3,16.6,12.9,7.5,18.4,1.1,2.4,21.5,150.3,-5.3,1.2,98.5,104.4,12.7
+14,Patrick Patterson,HOU,,F,6-8,235,21,Kentucky,United States,CAREER,,NCAA DI,,97,.625,.597,10.5,16.3,13.7,9.5,11.2,1.2,4.8,21.2,164.8,-1.8,1.5,127.0,93.8,23.8
+15,Larry Sanders,MIL,,PF,6-11,235,21,VCU,United States,CAREER,,NCAA DI,,101,.538,.523,12.5,24.4,18.5,4.7,13.8,1.5,11.9,24.2,134.7,-5.1,1.3,107.4,86.4,23.6
+16,Luke Babbitt,MIN,MIN to POR,SF,6-9,225,21,Nevada,United States,CAREER,,NCAA DI,,68,.591,.520,6.6,19.4,13.2,10.6,11.6,1.5,2.1,26.5,179.5,-2.8,1.4,120.5,100.2,25.3
+18,Eric Bledsoe,OKC,OKC to LAC,PG,6-1,214,20,Kentucky,United States,CAREER,,NCAA DI,,37,.566,.540,1.9,8.6,5.4,17.1,23.2,2.6,1.1,20.4,151.1,-3.5,1.3,102.4,95.0,13.8
+19,Avery Bradley,BOS,,PG,6-3,180,19,Texas,United States,CAREER,,NCAA DI,,34,.496,.489,3.4,6.5,5.0,12.4,11.5,2.4,1.6,20.4,135.3,-0.4,1.1,106.2,97.7,14.1
+20,James Anderson,SAN,,GF,6-6,210,21,Oklahoma State,United States,CAREER,,NCAA DI,,49,.542,.519,4.2,7.5,5.9,7.8,10.9,1.6,1.7,19.7,154.8,-1.9,1.2,108.9,101.9,15.2
+21,Craig Brackins,OKC,OKC to NOP,F,6-10,230,22,Iowa State,United States,CAREER,,NCAA DI,,96,.514,.472,6.1,20.7,13.6,12.4,11.6,1.0,3.3,29.1,146.4,-3.1,1.2,103.0,97.4,20.4
+22,Elliot Williams,POR,,G,6-5,190,21,Memphis,United States,CAREER,,NCAA DI,,68,.573,.521,3.7,10.8,7.3,17.9,16.4,2.3,0.3,23.2,151.8,-1.6,1.5,113.1,98.2,17.9
+23,Trevor Booker,MIN,MIN to WAS,PF,6-8,228,22,Clemson,United States,CAREER,,NCAA DI,,134,.584,.569,11.5,20.0,15.6,11.3,15.0,2.2,6.6,21.7,150.7,-2.8,1.4,116.9,91.6,24.0
+24,Damion James,ATL,ATL to NJN,SF,6-7,225,22,Texas,United States,CAREER,,NCAA DI,,142,.541,.514,11.0,22.9,17.1,7.7,12.7,1.9,4.0,23.6,148.3,-3.5,1.3,113.3,92.5,22.6
+25,Dominique Jones,MEM,MEM to DAL,G,6-4,215,21,South Florida,United States,CAREER,,NCAA DI,,95,.551,.502,4.7,12.1,8.4,23.5,13.2,2.6,1.2,28.3,150.2,-0.9,1.3,112.2,101.2,22.4
+26,Quincy Pondexter,OKC,OKC to NOP,F,6-7,230,22,Washington,United States,CAREER,,NCAA DI,,136,.572,.524,9.8,13.2,11.5,12.0,14.2,1.6,1.2,23.0,159.8,-2.6,1.4,117.5,100.7,20.1
+27,Jordan Crawford,NJN,NJN to ATL,G,6-5,195,21,Xavier,United States,CAREER,,NCAA DI,,65,.555,.523,4.2,11.1,7.9,19.5,13.6,2.3,0.7,27.6,160.4,-1.5,1.3,112.1,97.9,20.8
+28,Greivis Vasquez,MEM,,G,6-6,217,23,Maryland,Venezuela,CAREER,,NCAA DI,,136,.537,.490,3.2,11.6,7.6,32.4,18.2,2.4,0.8,25.9,158.2,1.3,1.2,108.2,97.3,19.4
+29,Daniel Orton,ORL,,PF,6-10,255,19,Kentucky,United States,CAREER,,NCAA DI,,110,.530,.483,1.4,7.8,4.7,28.4,19.6,3.0,1.0,26.5,154.9,-1.4,1.2,102.8,99.0,15.9
+30,Lazar Hayward,WAS,WAS to MIN,F,6-6,225,23,Marquette,United States,CAREER,,NCAA DI,,137,.550,.509,9.6,19.8,14.7,7.3,12.1,2.6,1.3,26.4,159.8,-4.1,1.3,112.6,94.0,21.5
+32,Dexter Pittman,MIA,,C,6-11,285,22,Texas,United States,CAREER,,NCAA DI,,134,.625,.623,18.0,17.0,17.5,4.8,16.9,1.2,7.8,25.1,122.4,-7.0,1.6,118.3,94.7,26.4
+33,Hassan Whiteside,SAC,,C,7-0,265,21,Marshall,United States,CAREER,,NCAA DI,,34,.548,.528,12.2,25.1,19.0,2.2,13.6,1.3,20.8,25.8,171.2,-6.5,1.4,108.6,83.7,28.3
+34,Armon Johnson,POR,,G,6-2,195,21,Nevada,United States,CAREER,,NCAA DI,,101,.536,.497,2.8,9.6,6.3,26.8,17.0,1.5,0.7,24.4,150.7,0.6,1.2,107.6,104.7,17.9
+36,Terrico White,DET,,G,6-5,215,20,Ole Miss,United States,CAREER,,NCAA DI,,66,.526,.504,4.3,9.7,7.0,12.3,9.9,1.6,0.8,24.1,145.6,-0.8,1.2,112.2,105.3,17.7
+37,Darington Hobson,MIL,,GF,6-7,210,22,New Mexico,United States,CAREER,,NCAA DI,,35,.520,.484,6.9,24.6,15.5,29.3,16.3,2.2,1.6,26.9,145.4,0.2,1.3,108.8,95.2,22.3
+38,Andy Rautins,NYK,,G,6-4,190,23,Syracuse,United States/Canada,CAREER,,NCAA DI,,127,.571,.552,1.9,8.8,5.6,19.5,18.4,3.2,0.7,18.6,153.3,0.3,1.2,110.9,97.5,15.0
+39,Landry Fields,NYK,,F,6-7,210,21,Stanford,United States,CAREER,,NCAA DI,,129,.543,.511,7.7,17.2,12.4,15.1,13.3,2.2,1.8,25.1,148.1,-1.9,1.3,110.4,98.6,20.6
+40,Lance Stephenson,IND,,SG,6-5,210,19,Cincinnati,United States,CAREER,,NCAA DI,,34,.493,.462,7.2,14.0,10.6,19.3,16.0,2.0,0.7,26.2,132.3,-2.6,1.1,101.3,99.5,17.1
+41,Jarvis Varnado,MIA,,FC,6-9,230,22,Mississippi State,United States,CAREER,,NCAA DI,,141,.597,.590,10.8,20.7,16.1,5.1,14.0,1.2,15.3,18.8,143.5,-3.6,1.5,117.2,87.1,24.8
+42,Da'Sean Butler,MIA,,F,6-7,230,22,West Virginia,United States,CAREER,,NCAA DI,,146,.546,.510,6.9,14.2,10.5,13.4,11.6,2.2,0.9,24.9,153.3,-1.5,1.3,114.4,96.2,20.1
+43,Devin Ebanks,LAL,,F,6-9,215,20,West Virginia,United States/Greece,CAREER,,NCAA DI,,69,.527,.470,9.6,18.7,14.1,16.2,16.2,1.8,2.4,19.9,131.4,-1.1,1.3,112.1,94.3,18.8
+44,Jerome Jordan,MIL,MIL to NYK,C,7-0,253,23,Tulsa,Jamaica,CAREER,,NCAA DI,,133,.605,.567,11.3,23.3,17.6,8.3,17.7,0.9,10.9,24.2,126.3,-6.1,1.6,113.2,87.4,25.3
+46,Gani Lawal,PHX,,F,6-9,234,21,Georgia Tech,United States/Nigeria,CAREER,,NCAA DI,,99,.555,.548,12.6,20.1,16.4,3.8,16.7,1.4,5.7,24.9,110.0,-7.1,1.4,104.5,95.7,20.3
+47,Tiny Gallon,MIL,,C,6-9,290,19,Oklahoma,United States,CAREER,,NCAA DI,,30,.584,.556,13.2,25.3,19.2,7.7,20.9,1.8,3.3,24.0,147.9,-7.5,1.4,105.4,101.4,20.4
+50,Solomon Alabi,DAL,DAL to TOR,C,7-1,250,22,Florida State,Nigeria,CAREER,,NCAA DI,,76,.577,.534,11.7,16.1,14.0,3.7,17.3,1.4,10.6,21.9,127.9,-6.4,1.4,108.7,90.4,20.3
+51,Magnum Rolle,OKC,OKC to IND,F,6-11,235,24,Louisiana Tech,Bahamas,CAREER,,NCAA DI,,126,.530,.504,12.4,18.0,15.3,6.1,15.9,1.8,7.0,21.9,147.0,-5.2,1.3,105.5,93.2,19.5
+52,Luke Harangody,BOS,,F,6-8,245,22,Notre Dame,United States,CAREER,,NCAA DI,,129,.536,.486,11.4,23.3,17.5,13.0,9.1,1.5,2.4,33.3,158.3,-2.4,1.3,114.5,96.8,27.5
+54,Willie Warren,LAC,,GF,6-4,200,20,Oklahoma,United States,CAREER,,NCAA DI,,57,.590,.539,2.1,6.9,4.6,22.2,17.9,2.0,0.2,24.8,159.6,-1.5,1.4,113.1,104.1,18.1
+55,Jeremy Evans,UTH,,F,6-9,200,22,Western Kentucky,United States,CAREER,,NCAA DI,,134,.660,.648,12.2,17.7,15.0,4.4,14.4,1.6,7.9,15.0,168.7,-2.8,1.6,129.4,96.1,21.2
+56,Hamady Ndiaye,MIN,MIN to WAS,C,7-0,235,23,Rutgers,Senegal,CAREER,,NCAA DI,,124,.559,.540,9.0,18.6,13.9,3.8,20.8,1.1,12.8,15.2,113.2,-5.1,1.5,101.8,96.0,16.9
+57,Ryan Reid,IND,IND to OKC,PF,6-8,235,23,Florida State,United States,CAREER,,NCAA DIII,,25,.433,.394,-,-,-,-,33.6,-,-,-,135.7,-,1.0,-,-,-
+58,Derrick Caracter,LAL,,F,6-9,276,22,UTEP,United States,CAREER,,NCAA DI,,80,.583,.564,14.1,18.5,16.4,7.4,19.5,2.1,4.4,28.4,148.2,-8.7,1.4,104.9,90.4,21.8
+59,Stanley Robinson,ORL,,F,6-9,220,21,UConn,United States,CAREER,,NCAA DI,,126,.540,.521,8.9,15.3,12.3,8.1,15.6,1.3,3.6,19.7,148.2,-3.6,1.2,107.7,95.2,17.2
+60,Dwayne Collins,PHX,,F,6-8,241,22,Miami (FL),United States,CAREER,,NCAA DI,,126,.571,.565,14.2,19.2,16.7,7.7,16.9,1.8,3.7,21.9,112.7,-5.1,1.5,111.8,97.6,21.3
+0,Ish Smith,,,PG,6-0,175,21,Wake Forest,United States,CAREER,,NAIA DII,,32,.578,.565,-,-,-,-,10.1,-,-,-,156.3,-,1.3,-,-,-
+0,Jeremy Lin,,,G,6-3,200,21,Harvard,United States,CAREER,,USCAA DII,,25,.674,.658,-,-,-,-,23.2,-,-,-,179.9,-,1.6,-,-,-
+0,Lance Thomas,,,F,6-8,240,22,Duke,United States,CAREER,,NCAA DI,,139,.550,.525,10.6,10.4,10.5,4.1,22.0,1.6,1.1,13.4,112.5,-4.4,1.4,105.3,96.7,10.3
+0,Donald Sloan,,,G,6-3,205,22,Texas A&M,United States,CAREER,,NCAA DI,,138,.524,.475,2.3,11.0,6.8,19.8,15.1,1.4,0.2,23.0,149.5,-0.3,1.3,107.1,98.3,15.6
+0,Manny Harris,,,G,6-5,185,20,Michigan,United States,CAREER,,NCAA DI,,98,.534,.461,5.4,15.3,10.2,26.9,16.7,2.8,1.2,30.7,155.1,-2.2,1.3,106.2,99.0,21.9
+0,Jonathan Gibson,,,PG,6-2,185,22,New Mexico State,United States,CAREER,,NCAA DI,,130,.569,.543,1.7,6.9,4.4,14.2,13.8,2.3,0.2,23.2,159.2,-1.7,1.3,113.1,104.6,16.6
+0,Elijah Millsap,,,GF,6-6,215,22,UAB,United States,CAREER,,NCAA DI,,87,.490,.449,10.5,22.0,16.2,12.8,18.8,3.4,1.4,30.3,134.1,-7.9,1.2,95.0,91.8,18.9
+0,Arinze Onuaku,,,PF,6-9,255,22,Syracuse,United States/Nigeria,CAREER,,NCAA DI,,134,.606,.648,12.1,16.1,14.2,4.5,15.2,1.6,5.1,18.5,104.3,-4.2,1.5,113.0,97.3,19.3
+0,Samardo Samuels,,,FC,6-9,260,21,Louisville,Jamaica,CAREER,,NCAA DI,,70,.589,.549,11.7,12.4,12.1,8.0,16.8,1.3,4.7,24.8,123.8,-5.7,1.5,112.7,97.2,20.6
+0,Ben Uzoh,,,SG,6-3,205,22,Tulsa,United States/Nigeria,CAREER,,NCAA DI,,141,.564,.513,4.7,12.8,9.0,21.1,16.2,2.2,2.3,23.3,158.5,-1.1,1.3,113.1,94.6,20.1
+0,Marqus Blakely,,,F,6-5,225,21,Vermont,United States,CAREER,,NCAA DI,,129,.588,.573,11.8,20.1,16.1,18.7,17.2,3.6,7.0,26.1,132.4,-3.5,1.6,113.5,87.7,27.3
+0,Patrick Christopher,,,GF,6-5,209,22,California,United States,CAREER,,NCAA DI,,134,.541,.507,4.7,10.2,7.6,11.4,11.5,1.6,0.5,22.3,160.8,-1.2,1.2,110.9,105.7,16.2
+0,Sherron Collins,,,PG,5-11,205,23,Kansas,United States,CAREER,,NCAA DI,,143,.562,.523,1.6,7.2,4.6,24.8,16.5,2.1,0.1,24.2,162.9,0.9,1.3,113.2,97.1,17.8
+0,Jerome Dyson,,,G,6-3,180,23,UConn,United States,CAREER,,NCAA DI,,113,.499,.440,4.1,9.3,6.8,19.9,16.0,3.2,1.5,27.3,144.3,-2.5,1.2,103.5,94.7,17.4
+0,Jeff Foote,,,C,7-0,265,22,Cornell,United States,CAREER,,NCAA DI,,87,.586,.573,10.1,23.0,16.9,15.8,17.8,1.1,7.9,22.8,117.5,-2.5,1.5,113.5,92.1,22.8
+0,Dennis Horner,,,PF,6-9,230,22,NC State,United States,CAREER,,NCAA DI,,128,.581,.536,5.6,10.8,8.4,9.2,13.6,1.6,2.4,17.5,160.7,-1.5,1.4,115.5,104.7,15.3
+0,Matt Janning,,,GF,6-4,198,22,Northeastern,United States/Georgia,CAREER,,NCAA DI,,128,.530,.493,3.3,11.2,7.3,18.8,15.1,2.4,0.6,24.8,152.3,-1.7,1.2,104.1,101.2,16.9
+0,Jerry Smith,,,G,6-2,190,22,Louisville,United States,CAREER,,NCAA DI,,138,.599,.574,4.4,10.2,7.3,13.5,15.8,3.2,0.8,18.1,157.3,-1.0,1.4,116.8,94.3,17.1
+0,Edwin Ubiles,,,GF,6-6,205,23,Siena,United States/Puerto Rico,CAREER,,NCAA DI,,131,.549,.530,4.2,10.9,7.6,13.2,13.5,2.2,2.3,24.0,152.2,-2.2,1.2,107.6,99.9,18.6
+0,Ronnie Aguilar,,,C,7-1,250,23,Colorado State,United States/El Salvador,CAREER,,NCAA DI,,36,.470,.433,12.1,29.3,21.3,2.1,24.7,1.0,7.0,16.6,104.3,-7.4,1.1,87.1,97.7,11.9
+0,Eric Boateng,,,C,6-8,255,24,Arizona State,England,CAREER,,NCAA DI,,117,.618,.649,12.3,19.4,16.1,5.9,24.0,1.2,3.2,18.5,112.9,-6.7,1.6,104.3,95.0,15.3
+0,Tweety Carter,,,PG,5-11,185,23,Baylor,United States,CAREER,,NCAA DI,,131,.561,.537,1.6,6.7,4.2,22.1,14.5,2.3,0.1,18.8,154.5,2.4,1.2,117.3,106.2,15.7
+0,Richard Delk,,,G,6-4,175,23,Troy,United States,CAREER,,NCAA DI,,123,.544,.541,3.7,9.9,6.9,12.1,16.9,1.9,1.7,17.8,136.1,-1.7,1.2,105.9,104.7,13.5
+0,Stephen Dennis,,,G,6-6,180,22,Kutztown,United States,,,,,,,,,,,,,,,,,,,,,
+0,Jordan Eglseder,,,C,7-0,280,21,Northern Iowa,United States,CAREER,,NCAA DI,,118,.580,.554,13.8,26.5,20.4,9.6,12.7,0.9,7.4,30.1,154.9,-5.1,1.3,112.6,91.4,28.7
+0,James Florence,,,PG,6-1,186,22,Mercer,United States,CAREER,,NCAA DI,,119,.501,.451,2.2,9.4,5.9,24.3,17.5,3.2,0.9,32.9,140.8,-4.6,1.2,98.8,103.7,17.9
+0,Charles Garcia,,,FC,6-10,230,21,Seattle,United States,CAREER,,NCAA DI,,31,.532,.490,9.8,24.4,16.7,8.4,18.5,0.9,2.9,35.1,136.6,-10.8,1.4,99.7,99.6,20.8
+0,Vernon Goodridge,,,F,6-9,220,26,La Salle,United States,CAREER,,NCAA DI,,82,.537,.541,13.0,19.0,16.1,2.4,16.0,1.6,8.2,16.2,103.4,-4.4,1.4,107.0,92.3,16.5
+0,Kenny Hayes,,,G,6-2,175,23,Miami (OH),United States,CAREER,,NCAA DI,,73,.561,.513,1.8,9.4,5.8,19.2,15.7,1.4,0.7,25.2,162.4,-1.8,1.3,107.9,104.3,16.7
+0,Tory Jackson,,,G,5-11,205,22,Notre Dame,United States,CAREER,,NCAA DI,,136,.483,.455,3.9,8.7,6.4,26.7,20.7,2.7,0.4,17.7,133.6,2.8,1.1,103.0,102.1,13.2
+0,Dominique Johnson,,,G,6-3,195,23,Azusa Pacific,United States,,,,,,,,,,,,,,,,,,,,,
+0,Tyren Johnson,,,F,6-8,225,21,Louisiana,United States,CAREER,,NCAA DI,,114,.523,.492,8.2,17.0,12.5,15.1,19.7,2.7,5.2,21.0,145.3,-3.6,1.2,101.5,96.9,17.8
+0,Adam Koch,,,F,6-8,255,22,Northern Iowa,United States,CAREER,,NCAA DI,,132,.585,.497,7.1,16.7,12.1,13.5,18.2,1.4,1.5,23.0,153.1,-3.8,1.6,111.5,98.4,18.3
+0,Mac Koshwal,,,FC,6-10,255,22,DePaul,United States,CAREER,,NCAA DI,,81,.535,.523,12.1,19.8,15.8,10.4,17.8,2.6,2.0,22.3,133.2,-4.7,1.3,103.6,104.3,19.7
+0,Chris Kramer,,,G,6-3,195,22,Purdue,United States,CAREER,,NCAA DI,,133,.545,.502,1.8,11.1,6.4,17.2,20.4,4.4,1.5,13.7,146.7,0.7,1.3,104.9,89.9,13.8
+0,Dwight Lewis,,,G,6-6,215,22,USC,United States/Venezuela,CAREER,,NCAA DI,,133,.507,.472,2.2,7.8,5.2,10.2,15.4,1.8,0.3,22.1,147.1,-3.2,1.2,99.0,99.7,12.1
+0,"Anthony Mason, Jr.",,,F,6-7,215,23,St. John's,United States,CAREER,,NCAA DI,,99,.500,.472,6.8,13.7,10.2,15.3,15.4,1.7,2.1,22.5,146.3,-2.5,1.1,101.0,100.3,14.8
+0,Tasmin Mitchell,,,SF,6-7,245,23,LSU,United States,CAREER,,NCAA DI,,137,.533,.499,8.0,14.7,11.4,13.2,13.3,2.4,1.8,23.0,154.6,-2.0,1.2,110.5,96.2,19.3
+0,Kevin Palmer,,,SF,6-6,210,23,Texas A&M-CC,United States,CAREER,,NCAA DI,,65,.565,.505,6.6,13.5,10.1,22.5,18.6,5.2,1.6,32.2,154.3,-6.4,1.4,108.6,90.6,25.9
+0,J.P. Prince,,,F,6-8,205,22,Tennessee,United States,CAREER,,NCAA DI,,126,.541,.522,6.7,10.9,8.8,21.8,20.9,3.4,2.7,20.3,132.7,-0.9,1.3,104.6,95.8,17.0
+0,Dzherom Rendl,,,G,5-10,172,23,California,United States/Ukraine,CAREER,,NCAA DI,,132,.602,.550,1.6,7.3,4.6,25.9,19.5,1.4,-,24.7,174.0,-0.5,1.4,112.9,107.8,17.8
+0,Scottie Reynolds,,,G,6-2,209,22,Villanova,United States,CAREER,,NCAA DI,,138,.573,.506,1.7,8.7,5.2,22.9,16.8,2.8,0.4,26.2,160.2,-1.6,1.4,113.7,100.7,19.4
+0,Matt Rogers,,,C,6-11,225,22,Southwest Baptist,United States,,,,,,,,,,,,,,,,,,,,,
+0,Billy Rush,,,G,6-6,200,22,Robert Morris-Springfield,United States,,,,,,,,,,,,,,,,,,,,,
+0,Omar Samhan,,,C,6-11,265,21,Saint Mary's,United States/Egypt,CAREER,,NCAA DI,,133,.575,.543,14.4,22.1,18.3,9.3,12.0,0.9,7.2,26.0,125.1,-3.6,1.4,119.0,91.0,27.4
+0,Jon Scheyer,,,G,6-5,190,22,Duke,United States,CAREER,,NCAA DI,,144,.584,.509,3.5,8.9,6.2,17.3,10.6,2.5,0.6,20.4,164.8,1.7,1.4,128.3,95.8,20.3
+0,DeShawn Sims,,,F,6-8,224,22,Michigan,United States,CAREER,,NCAA DI,,132,.512,.488,10.1,16.6,13.3,7.8,9.9,2.2,2.8,28.2,143.6,-3.4,1.1,105.8,98.1,21.2
+0,Edgar Sosa,,,G,6-2,175,22,Louisville,United States/Dominican Republic,CAREER,,NCAA DI,,140,.537,.508,1.8,6.6,4.2,23.6,17.8,2.2,0.4,23.5,146.1,-0.4,1.2,106.0,98.8,14.8
+0,Patrick Sullivan,,,PF,6-9,215,21,Southeastern Louisiana,United States,,,,,,,,,,,,,,,,,,,,,
+0,Devin Sweetney,,,GF,6-6,200,22,St. Francis (PA),United States,CAREER,,NCAA DI,,109,.530,.460,8.2,17.8,13.0,12.9,19.1,2.1,1.3,26.3,147.7,-6.3,1.3,100.6,105.3,17.0
+0,Seth Tarver,,,GF,6-5,210,21,Oregon State,United States,CAREER,,NCAA DI,,128,.524,.498,6.1,13.9,9.9,14.5,16.1,3.5,0.5,18.3,138.6,-1.3,1.2,104.3,101.1,16.2
+0,Ryan Thompson,,,F,6-6,220,22,Rider,United States,CAREER,,NCAA DIII,,65,.399,.356,-,-,-,-,21.0,-,-,-,118.4,-,0.9,-,-,-
+0,Tyler Wilkerson,,,F,6-8,240,21,Marshall,United States,CAREER,,NCAA DI,,114,.578,.541,12.4,20.8,16.6,6.6,14.6,1.6,5.0,22.7,152.0,-4.9,1.4,114.3,97.6,21.8
+0,Brian Zoubek,,,C,7-1,260,22,Duke,United States,CAREER,,NCAA DI,,133,.602,.594,18.7,21.8,20.3,8.4,21.8,1.9,4.9,17.5,120.2,-4.8,1.5,115.4,88.2,20.3
+0,Courtney Fortson,,,G,5-11,185,22,Arkansas,United States,CAREER,,NCAA DI,,47,.490,.441,5.2,12.8,9.0,36.3,22.2,2.1,0.4,30.3,138.5,-2.2,1.2,96.1,103.8,16.4
+0,Jamar Smith,,,SG,6-3,185,23,Southern Indiana,United States,CAREER,,NCAA DI,,62,.453,.443,10.2,20.3,15.3,6.6,13.6,1.2,3.6,24.6,120.4,-4.7,1.1,94.4,93.5,14.4
