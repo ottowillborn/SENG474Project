@@ -41,7 +41,7 @@ def scrape_ncaa_advanced_career_stats(player_summary_url: str) -> pd.Series:
     resp = requests.get(player_summary_url)
     resp.raise_for_status()
     soup = BeautifulSoup(resp.text, "html.parser")
-
+    print(f"Getting advanced stats from {player_summary_url}")
     # Locate the NCAA Advanced Stats tab content
     advanced_tab_div = soup.find("div", id="tabs_ncaa_reg-4")
     if not advanced_tab_div:
