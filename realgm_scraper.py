@@ -33,31 +33,49 @@ def scrape_realgm_draft(year: int) -> pd.DataFrame:
 
     return full_draft_df
 
-def scrape_ncaa_player_stats(season: int) -> pd.DataFrame:
-    url = f"https://basketball.realgm.com/ncaa/stats/{season}/Averages/Qualified/All/Season/All/points/desc/1/"
-    resp = requests.get(url)
+def scrape_ncaa_advanced_career_stats(player_summary_url: str) -> pd.Series:
+    import requests
+    from bs4 import BeautifulSoup
+    import pandas as pd
+
+    resp = requests.get(player_summary_url)
     resp.raise_for_status()
     soup = BeautifulSoup(resp.text, "html.parser")
 
-    # Find all tables and look for the one with column headers starting with 'Player'
-    tables = soup.find_all("table")
-    target_table = None
-    for table in tables:
-        headers = [th.get_text(strip=True) for th in table.find_all("th")]
-        if headers and "Player" in headers[1]:
-            target_table = table
-            break
+    # Locate the NCAA Advanced Stats tab content
+    advanced_tab_div = soup.find("div", id="tabs_ncaa_reg-4")
+    if not advanced_tab_div:
+        print(f"Advanced tab div not found for {player_summary_url}")
+        return pd.Series(dtype="object")
 
-    if not target_table:
-        raise ValueError("Stats table not found.")
+    # Look for the table inside this div
+    table = advanced_tab_div.find("table")
+    if not table:
+        print(f"No table found in NCAA Advanced Stats tab for {player_summary_url}")
+        return pd.Series(dtype="object")
 
-    headers = [th.get_text(strip=True) for th in target_table.find("thead").find_all("th")]
-    rows = []
-    for tr in target_table.find("tbody").find_all("tr"):
-        cols = [td.get_text(strip=True) for td in tr.find_all("td")]
-        if cols:
-            rows.append(cols)
+    # Get the header names
+    header_row = table.find("thead")
+    if not header_row:
+        print("No thead found.")
+        return pd.Series(dtype="object")
 
-    df = pd.DataFrame(rows, columns=headers)
-    return df
+    headers = [th.get_text(strip=True) for th in header_row.find_all("th")]
 
+    # Get the footer row (career stats)
+    tfoot = table.find("tfoot")
+    if not tfoot:
+        print("No tfoot found.")
+        return pd.Series(dtype="object")
+
+    tr = tfoot.find("tr")
+    if not tr:
+        print("No row in tfoot.")
+        return pd.Series(dtype="object")
+
+    cols = [th.get_text(strip=True) for th in tr.find_all("th")]
+    if len(headers) != len(cols):
+        print("Header and footer column count mismatch.")
+        return pd.Series(dtype="object")
+
+    return pd.Series(dict(zip(headers, cols)))
