@@ -49,8 +49,8 @@ if len(sys.argv) != 2:
 
 test_file_name = sys.argv[1]
 
-path = "playerData/"
-pattern = os.path.join(path, "college_players_career_stats_*.csv")
+path = "allPlayerData/"
+pattern = os.path.join(path, "all_players_career_stats_*.csv")
 all_files = glob.glob(pattern)
 
 files = [f for f in all_files if not f.endswith(test_file_name)] #excluding the test file
@@ -64,7 +64,7 @@ for file in files:
 
 #MEGA FRAME
 combined_df = pd.concat(dfs, ignore_index=True)
-combined_df = combined_df.drop(columns=["Draft Trades", "Age_y", "Class", "Season", "School"])
+#combined_df = combined_df.drop(columns=["Draft Trades", "Age_y", "Class", "Season", "School"])
 # 999 labels as not picked
 combined_df["Pick"] = combined_df["Pick"].replace(0,999)
 combined_df["label"] = -combined_df["Pick"] #make a new column label which is just negative pick 
@@ -78,7 +78,7 @@ combined_df.to_csv("combined_player_data_with_labels.csv", index=False)
 
 
 
-desired_feats = ["WT","Age_x","GP","TS%",                   #add height, omit noationality for later, POS ENCODED
+desired_feats = ["WT","Age_x","GP","TS%",                   
             "eFG%","ORB%","DRB%","TRB%","AST%","TOV%",
             "STL%","BLK%","USG%","Total S %","PPR",
             "PPS","ORtg","DRtg","PER", "Team_encoded","Position_encoded"]
@@ -119,7 +119,7 @@ model = xgb.train(params, trained, num_boost_round=50)
 test_path = os.path.join(path, test_file_name)
 pre_tested_players = pd.read_csv(test_path)
 
-pre_tested_players = pre_tested_players.drop(columns=["Draft Trades", "Age_y", "Class", "Season", "School"])
+#pre_tested_players = pre_tested_players.drop(columns=["Draft Trades", "Age_y", "Class", "Season", "School"])
 
 names_and_picks_pre_tested = pre_tested_players[["Player", "Pick"]].copy() #keep names and indexes 
 
@@ -188,18 +188,45 @@ print("Mean AVG pick error (for now this is a very unfavorably skewed metric):",
 
 # Scatter plot
 plt.figure(figsize=(10, 8))
-plt.scatter(merged_names_and_picks["Actual Pick"], merged_names_and_picks["Predicted Pick"], alpha=0.8)
 
+
+plt.scatter(
+    merged_names_and_picks["Actual Pick"],
+    merged_names_and_picks["Predicted Pick"],
+    alpha=0.8
+)
+
+# Diagonal line (perfect prediction)
 plt.plot([1, 60], [1, 60], linestyle='--', color='gray', label="Perfect Prediction")
 
+# Annotate each player
 for _, row in merged_names_and_picks.iterrows():
     plt.text(
-        row["Actual Pick"] + 0.5,  
-        row["Predicted Pick"] + 0.5,  
+        row["Actual Pick"] + 0.5,
+        row["Predicted Pick"] + 0.5,
         row["Player"],
         fontsize=8
     )
 
+# Add quadrant labels with background boxes for readability
+plt.text(
+    10, 55, "predicted high, actual low", fontsize=8, color='red', weight='bold',
+    alpha=0.7, bbox=dict(facecolor='white', edgecolor='none', alpha=0.3)
+)
+plt.text(
+    45, 55, "predicted low, actual low", fontsize=8, color='green', weight='bold',
+    alpha=0.7, bbox=dict(facecolor='white', edgecolor='none', alpha=0.3)
+)
+plt.text(
+    10, 5, "predicted high, actual high", fontsize=8, color='green', weight='bold',
+    alpha=0.7, bbox=dict(facecolor='white', edgecolor='none', alpha=0.3)
+)
+plt.text(
+    45, 5, "predicted low, actual high", fontsize=8, color='red', weight='bold',
+    alpha=0.7, bbox=dict(facecolor='white', edgecolor='none', alpha=0.3)
+)
+
+# Axis labels and title
 plt.xlabel("Actual Pick")
 plt.ylabel("Predicted Pick")
 plt.title("Predicted vs. Actual NBA Draft Picks")
@@ -207,6 +234,3 @@ plt.legend()
 plt.grid(True)
 plt.tight_layout()
 plt.show()
-
-#NOTES : WANT TO CHANGE PREDICTED PICK TO BE 0 IF EXCEEDS DRAFT SIZE 
-#MAKE IT EASIER TO CHOOSE WHAT YEAR TO USE AS TEST SET
