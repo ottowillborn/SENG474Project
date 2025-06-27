@@ -48,34 +48,38 @@ if len(sys.argv) != 2:
     sys.exit(1)
 
 test_file_name = sys.argv[1]
+def create_formated_player_data(filenmae):
+    #func: create_formated_player_data
+    #args:
+    #Docs:
+    path = "playerData/"
+    pattern = os.path.join(path, "college_players_career_stats_*.csv")
+    all_files = glob.glob(pattern)
 
-path = "playerData/"
-pattern = os.path.join(path, "college_players_career_stats_*.csv")
-all_files = glob.glob(pattern)
+    files = [f for f in all_files if not f.endswith(test_file_name)] #excluding the test file
 
-files = [f for f in all_files if not f.endswith(test_file_name)] #excluding the test file
+    dfs = []
+    for file in files:
+        year = int(file.split("_")[-1].split(".")[0])  
+        df = pd.read_csv(file)
+        df["Year"] = year  
+        dfs.append(df)
 
-dfs = []
-for file in files:
-    year = int(file.split("_")[-1].split(".")[0])  
-    df = pd.read_csv(file)
-    df["Year"] = year  
-    dfs.append(df)
+    #MEGA FRAME
+    combined_df = pd.concat(dfs, ignore_index=True)
+    combined_df = combined_df.drop(columns=["Draft Trades", "Age_y", "Class", "Season", "School"])
+    # 999 labels as not picked
+    combined_df["Pick"] = combined_df["Pick"].replace(0,999)
+    combined_df["label"] = -combined_df["Pick"] #make a new column label which is just negative pick 
 
-#MEGA FRAME
-combined_df = pd.concat(dfs, ignore_index=True)
-combined_df = combined_df.drop(columns=["Draft Trades", "Age_y", "Class", "Season", "School"])
-# 999 labels as not picked
-combined_df["Pick"] = combined_df["Pick"].replace(0,999)
-combined_df["label"] = -combined_df["Pick"] #make a new column label which is just negative pick 
+    team_le = LabelEncoder()
+    pos_le = LabelEncoder()
+    combined_df["Team_encoded"] = team_le.fit_transform(combined_df["Pre-Draft Team"]) #encodes pre draft teams into numbers
+    combined_df["Position_encoded"] = pos_le.fit_transform(combined_df["Pos"]) #encodes positions into numbers
 
-team_le = LabelEncoder()
-pos_le = LabelEncoder()
-combined_df["Team_encoded"] = team_le.fit_transform(combined_df["Pre-Draft Team"]) #encodes pre draft teams into numbers
-combined_df["Position_encoded"] = pos_le.fit_transform(combined_df["Pos"]) #encodes positions into numbers
-
-combined_df.to_csv("combined_player_data_with_labels.csv", index=False) 
-
+    combined_df.to_csv(filenmae, index=False) 
+    return combined_df
+combined_df = create_formated_player_data("combined_player_data_with_labels.csv")
 
 
 desired_feats = ["WT","Age_x","GP","TS%",                   #add height, omit noationality for later, POS ENCODED
