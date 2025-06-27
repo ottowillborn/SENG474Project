@@ -48,11 +48,30 @@ path = "playerData/"
 team_le = LabelEncoder()
 pos_le = LabelEncoder()
 
-if len(sys.argv) != 2:
-    print("Usage: python script.py <test_csv_filename>")
-    sys.exit(1)
+def plot_data(merged_names_and_picks):
+    # Scatter plot
+    print("Mean AVG pick error (for now this is a very unfavorably skewed metric):",merged_names_and_picks["Error (pick distance)"].mean())
+    plt.figure(figsize=(10, 8))
+    plt.scatter(merged_names_and_picks["Actual Pick"], merged_names_and_picks["Predicted Pick"], alpha=0.8)
 
-test_file_name = sys.argv[1]
+    plt.plot([1, 60], [1, 60], linestyle='--', color='gray', label="Perfect Prediction")
+
+    for _, row in merged_names_and_picks.iterrows():
+        plt.text(
+            row["Actual Pick"] + 0.5,  
+            row["Predicted Pick"] + 0.5,  
+            row["Player"],
+            fontsize=8
+        )
+
+    plt.xlabel("Actual Pick")
+    plt.ylabel("Predicted Pick")
+    plt.title("Predicted vs. Actual NBA Draft Picks")
+    plt.legend()
+    plt.grid(True)
+    plt.tight_layout()
+    plt.show()
+
 def create_formated_player_data(filenmae):
     #func: create_formated_player_data
     #args:
@@ -81,6 +100,13 @@ def create_formated_player_data(filenmae):
 
     combined_df.to_csv(filenmae, index=False) 
     return combined_df
+
+if len(sys.argv) != 2:
+    print("Usage: python script.py <test_csv_filename>")
+    sys.exit(1)
+
+test_file_name = sys.argv[1]
+
 combined_df = create_formated_player_data("combined_player_data_with_labels.csv")
 
 
@@ -189,30 +215,9 @@ merged_names_and_picks = merged_names_and_picks.rename(columns={"RowIndex": "Pre
 merged_names_and_picks["Error (pick distance)"] = (merged_names_and_picks["Predicted Pick"] - merged_names_and_picks["Actual Pick"]).abs()
 
 print(merged_names_and_picks)
+plot_data(merged_names_and_picks)
+ 
 
-print("Mean AVG pick error (for now this is a very unfavorably skewed metric):",merged_names_and_picks["Error (pick distance)"].mean()) 
-
-# Scatter plot
-plt.figure(figsize=(10, 8))
-plt.scatter(merged_names_and_picks["Actual Pick"], merged_names_and_picks["Predicted Pick"], alpha=0.8)
-
-plt.plot([1, 60], [1, 60], linestyle='--', color='gray', label="Perfect Prediction")
-
-for _, row in merged_names_and_picks.iterrows():
-    plt.text(
-        row["Actual Pick"] + 0.5,  
-        row["Predicted Pick"] + 0.5,  
-        row["Player"],
-        fontsize=8
-    )
-
-plt.xlabel("Actual Pick")
-plt.ylabel("Predicted Pick")
-plt.title("Predicted vs. Actual NBA Draft Picks")
-plt.legend()
-plt.grid(True)
-plt.tight_layout()
-plt.show()
 
 #NOTES : WANT TO CHANGE PREDICTED PICK TO BE 0 IF EXCEEDS DRAFT SIZE 
 #MAKE IT EASIER TO CHOOSE WHAT YEAR TO USE AS TEST SET
