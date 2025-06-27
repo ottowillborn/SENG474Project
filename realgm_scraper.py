@@ -36,10 +36,57 @@ def scrape_realgm_draft(year: int) -> pd.DataFrame:
 
     return full_draft_df
 
+def scrape_international_advanced_career_stats(player_summary_url: str, draft_year: int) -> pd.Series:
+
+    resp = requests.get(player_summary_url)
+    resp.raise_for_status()
+    soup = BeautifulSoup(resp.text, "html.parser")
+    print(f"Getting advanced international stats from {player_summary_url}")
+    # Locate the International Advanced Stats tab content
+    advanced_tab_div = soup.find("div", id="tabs_international_reg-4")
+    if not advanced_tab_div:
+        print(f"Advanced tab div not found for {player_summary_url}")
+        return pd.Series(dtype="object")
+
+    # Look for the table inside this div
+    table = advanced_tab_div.find("table")
+    if not table:
+        print(f"No table found in International Advanced Stats tab for {player_summary_url}")
+        return pd.Series(dtype="object")
+
+    # Get the header names
+    header_row = table.find("thead")
+    if not header_row:
+        print("No thead found.")
+        return pd.Series(dtype="object")
+
+    headers = [th.get_text(strip=True) for th in header_row.find_all("th")]
+
+        # Get the row of stats corresponding to the draft year
+    tbody = table.find("tbody")
+    if not tbody:
+        print("No tbody found.")
+        return pd.Series(dtype="object")
+
+    draft_row = None
+    for tr in tbody.find_all("tr"):
+        cols = [td.get_text(strip=True) for td in tr.find_all("td")]
+        # Usually the first column is the season/year, try to match draft_year
+        if cols and str(draft_year-1) in cols[0]:
+            draft_row = cols
+            break
+
+    if draft_row is None:
+        print(f"No stats found for draft year {draft_year} in {player_summary_url}")
+        return pd.Series(dtype="object")
+
+    if len(headers) != len(draft_row):
+        print("Header and row column count mismatch.")
+        return pd.Series(dtype="object")
+
+    return pd.Series(dict(zip(headers, draft_row)))
+
 def scrape_ncaa_advanced_career_stats(player_summary_url: str) -> pd.Series:
-    import requests
-    from bs4 import BeautifulSoup
-    import pandas as pd
 
     resp = requests.get(player_summary_url)
     resp.raise_for_status()
@@ -83,37 +130,62 @@ def scrape_ncaa_advanced_career_stats(player_summary_url: str) -> pd.Series:
 
     return pd.Series(dict(zip(headers, cols)))
 
-draft_year = 2019
-draft_df = scrape_realgm_draft(draft_year)
-college_players_df = draft_df[~draft_df['Class'].str.contains('DOB', na=False)].copy()
-college_players_df = college_players_df.drop(columns=['YOS', 'Class', ], axis=1)
-print(f"Found {len(college_players_df)} college players.")
-print(college_players_df.head())
+for draft_year in range(2006, 2023):
+    print(f"\nProcessing draft year: {draft_year}")
+    draft_df = scrape_realgm_draft(draft_year)
+    college_players_df = draft_df[~draft_df['Class'].str.contains('DOB', na=False)].copy()
+    international_players_df = draft_df[draft_df['Class'].str.contains('DOB', na=False)].copy()
 
-# Store career stats in a list
-all_career_stats = []
+    college_players_df = college_players_df.drop(columns=['YOS', 'Class', ], axis=1)
+    international_players_df = international_players_df.drop(columns=['YOS', 'Class', ], axis=1)
 
-for i, row in college_players_df.iterrows():
-    player_name = row['Player']
-    try:
-        player_url = find_realgm_player_url(player_name)
-        if player_url:
-            career_stats = scrape_ncaa_advanced_career_stats(player_url)
-            career_stats["Player"] = player_name  # add identifier
-            all_career_stats.append(career_stats)
-        else:
-            print(f"URL not found for {player_name}")
-    except Exception as e:
-        print(f"Error processing {player_name}: {e}")
+    print(f"Found {len(college_players_df)} college players.")
+    print("College players columns:", list(college_players_df.columns))
+    print(college_players_df.head())
+    print(f"Found {len(international_players_df)} international players.")
+    print("International players columns:", list(international_players_df.columns))
+    print(international_players_df.head())
 
-# Combine all into a DataFrame
-career_stats_df = pd.DataFrame(all_career_stats)
-career_stats_df = career_stats_df.dropna(axis=1, how='all')  # Remove columns with all NaN values
-print(career_stats_df.head())
+    # Store international career stats in a list
+    all_international_career_stats = []
+    for i, row in international_players_df.iterrows():
+        player_name = row['Player']
+        try:
+            player_url = find_realgm_player_url(player_name)
+            if player_url:
+                career_stats = scrape_international_advanced_career_stats(player_url, draft_year)
+                career_stats["Player"] = player_name  # add identifier
+                all_international_career_stats.append(career_stats)
+            else:
+                print(f"URL not found for {player_name}")
+        except Exception as e:
+            print(f"Error processing {player_name}: {e}")
 
-# Optional: merge with original draft info
-combined_df = pd.merge(college_players_df, career_stats_df, on="Player", how="left")
-print(combined_df.head())
+    # Store college career stats in a list
+    all_ncaa_career_stats = []
+    for i, row in college_players_df.iterrows():
+        player_name = row['Player']
+        try:
+            player_url = find_realgm_player_url(player_name)
+            if player_url:
+                career_stats = scrape_ncaa_advanced_career_stats(player_url)
+                career_stats["Player"] = player_name  # add identifier
+                all_ncaa_career_stats.append(career_stats)
+            else:
+                print(f"URL not found for {player_name}")
+        except Exception as e:
+            print(f"Error processing {player_name}: {e}")
 
-# Save to CSV
-combined_df.to_csv(f"college_players_career_stats_{draft_year}.csv", index=False)
+    # Combine all into a DataFrame
+    all_career_stats = all_international_career_stats + all_ncaa_career_stats
+    career_stats_df = pd.DataFrame(all_career_stats)
+    career_stats_df = career_stats_df.dropna(axis=1, how='all')  # Remove columns with all NaN values
+
+    # Merge with original draft info
+    combined_df = pd.merge(draft_df, career_stats_df, on="Player", how="left")
+    drop_cols = [col for col in ["Draft Trades", "Age_y", "Class_x", "Class_y", "YOS", "Team_y", "Season", "School"] if col in combined_df.columns]
+    combined_df = combined_df.drop(columns=drop_cols)
+    print(combined_df.head())
+
+    # Save to CSV
+    combined_df.to_csv(f"all_players_career_stats_{draft_year}.csv", index=False)
