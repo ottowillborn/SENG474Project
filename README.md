@@ -4,7 +4,7 @@ Repo for Draft Prediction Model Course Project
 To install requirements from bash terminal: <pre> ```pip3 install -r requirements.txt``` </pre>
 
 # Running the program
-<pre> ```python model.py <file.csv> ``` </pre>
+<pre> python model.py <file.csv> </pre>
 
 
 model.py: Current working XGBoost algorithm on pairwise setting. Run with model.py "file name in playerData" will test on the file given and exclude it from training set.
