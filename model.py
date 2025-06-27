@@ -43,6 +43,11 @@ from sklearn.preprocessing import LabelEncoder
 
 #The following is an XGboost model set to pairwise ranking only american college players. Run with model.py <test file name in Player Data>. Rudimentary testing but it will just exclude your test file from training. 
 
+#Global Variables:
+path = "playerData/"
+team_le = LabelEncoder()
+pos_le = LabelEncoder()
+
 if len(sys.argv) != 2:
     print("Usage: python script.py <test_csv_filename>")
     sys.exit(1)
@@ -52,7 +57,6 @@ def create_formated_player_data(filenmae):
     #func: create_formated_player_data
     #args:
     #Docs:
-    path = "playerData/"
     pattern = os.path.join(path, "college_players_career_stats_*.csv")
     all_files = glob.glob(pattern)
 
@@ -72,8 +76,6 @@ def create_formated_player_data(filenmae):
     combined_df["Pick"] = combined_df["Pick"].replace(0,999)
     combined_df["label"] = -combined_df["Pick"] #make a new column label which is just negative pick 
 
-    team_le = LabelEncoder()
-    pos_le = LabelEncoder()
     combined_df["Team_encoded"] = team_le.fit_transform(combined_df["Pre-Draft Team"]) #encodes pre draft teams into numbers
     combined_df["Position_encoded"] = pos_le.fit_transform(combined_df["Pos"]) #encodes positions into numbers
 
