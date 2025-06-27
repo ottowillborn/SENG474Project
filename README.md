@@ -1,8 +1,13 @@
 # SENG474Project
 Repo for Draft Prediction Model Course Project
+## Installing required libraries
+To install requirements from bash terminal: <pre> ```pip3 install -r requirements.txt``` </pre>
 
-To install requirements from bash terminal: pip3 install -r requirements.txt
+## Running the program
 
+<pre> python model.py [filename] </pre>
+
+## program structure
 model.py: Current working XGBoost algorithm on pairwise setting. Run with model.py "file name in playerData" will test on the file given and exclude it from training set.
 Issues:
 -No european, australian, g league etc players in dataset
