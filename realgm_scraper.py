@@ -15,19 +15,48 @@ def scrape_realgm_draft(year: int) -> pd.DataFrame:
     if not tables or len(tables) < 3:
         raise ValueError("Could not find the required tables on draft page.")
 
-    # Parse both rounds and undrafted players
     all_rounds = []
-    for table in tables[:3]:  
+    for i, table in enumerate(tables[:3]):
         headers = [th.get_text(strip=True) for th in table.find("thead").find_all("th")]
+
         rows = []
+        player_names = []
+        player_links = []
+
         for tr in table.find("tbody").find_all("tr"):
-            cols = [td.get_text(strip=True) for td in tr.find_all("td")]
-            if cols:
-                rows.append(cols)
+            tds = tr.find_all("td")
+            if not tds:
+                continue
+
+            # Extract player name and link from tds[1]
+            player_td = tds[0] if i == 2 else tds[1]
+            a_tag = player_td.find("a")
+            if a_tag:
+                player_name = a_tag.get_text(strip=True)
+                player_link = a_tag['href']
+            else:
+                player_name = player_td.get_text(strip=True)
+                player_link = None
+
+            player_names.append(player_name)
+            player_links.append(player_link)
+
+            # Get text for all columns
+            cols = [td.get_text(strip=True) for td in tds]
+            rows.append(cols)
+
+        # Create DataFrame for this table
         df = pd.DataFrame(rows, columns=headers)
+
+        # Overwrite 'Player' column with parsed names (in case it differs)
+        df["Player"] = player_names
+        df["Player Link"] = player_links
+
         all_rounds.append(df)
 
+    # Combine all rounds
     full_draft_df = pd.concat(all_rounds, ignore_index=True)
+
 
     # Set Pick to 0 where Pick is empty or missing (undrafted)
     if "Pick" in full_draft_df.columns:
@@ -73,6 +102,9 @@ def scrape_international_advanced_career_stats(player_summary_url: str, draft_ye
         cols = [td.get_text(strip=True) for td in tr.find_all("td")]
         # Usually the first column is the season/year, try to match draft_year
         if cols and str(draft_year-1) in cols[0]:
+            draft_row = cols
+            break
+        elif cols and str(draft_year) in cols[0]:
             draft_row = cols
             break
 
@@ -130,9 +162,11 @@ def scrape_ncaa_advanced_career_stats(player_summary_url: str) -> pd.Series:
 
     return pd.Series(dict(zip(headers, cols)))
 
-for draft_year in range(2006, 2023):
+for draft_year in range(2006, 2026):
     print(f"\nProcessing draft year: {draft_year}")
     draft_df = scrape_realgm_draft(draft_year)
+    print("Draft df:", list(draft_df.columns))
+    print(draft_df.head(20))
     college_players_df = draft_df[~draft_df['Class'].str.contains('DOB', na=False)].copy()
     international_players_df = draft_df[draft_df['Class'].str.contains('DOB', na=False)].copy()
 
@@ -150,31 +184,25 @@ for draft_year in range(2006, 2023):
     all_international_career_stats = []
     for i, row in international_players_df.iterrows():
         player_name = row['Player']
-        try:
-            player_url = find_realgm_player_url(player_name)
-            if player_url:
-                career_stats = scrape_international_advanced_career_stats(player_url, draft_year)
-                career_stats["Player"] = player_name  # add identifier
-                all_international_career_stats.append(career_stats)
-            else:
-                print(f"URL not found for {player_name}")
-        except Exception as e:
-            print(f"Error processing {player_name}: {e}")
+        player_url = f"https://basketball.realgm.com/{row['Player Link']}"
+        if player_url:
+            career_stats = scrape_international_advanced_career_stats(player_url, draft_year)
+            career_stats["Player"] = player_name  # add identifier
+            all_international_career_stats.append(career_stats)
+        else:
+            print(f"URL not found for {player_name}")
 
     # Store college career stats in a list
     all_ncaa_career_stats = []
     for i, row in college_players_df.iterrows():
         player_name = row['Player']
-        try:
-            player_url = find_realgm_player_url(player_name)
-            if player_url:
-                career_stats = scrape_ncaa_advanced_career_stats(player_url)
-                career_stats["Player"] = player_name  # add identifier
-                all_ncaa_career_stats.append(career_stats)
-            else:
-                print(f"URL not found for {player_name}")
-        except Exception as e:
-            print(f"Error processing {player_name}: {e}")
+        player_url = f"https://basketball.realgm.com/{row['Player Link']}"
+        if player_url:
+            career_stats = scrape_ncaa_advanced_career_stats(player_url)
+            career_stats["Player"] = player_name  # add identifier
+            all_ncaa_career_stats.append(career_stats)
+        else:
+            print(f"URL not found for {player_name}")
 
     # Combine all into a DataFrame
     all_career_stats = all_international_career_stats + all_ncaa_career_stats

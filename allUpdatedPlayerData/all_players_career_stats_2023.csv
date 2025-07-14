@@ -1,0 +1,139 @@
+Pick,Player,Team_x,Pos,HT,WT,Age_x,Pre-Draft Team,Nationality,Player Link,League,GP,GS,TS%,eFG%,ORB%,DRB%,TRB%,AST%,TOV%,STL%,BLK%,USG%,Total S %,PPR,PPS,ORtg,DRtg,PER
+1,Victor Wembanyama,SAN,F,7-3,235,19,Boulogne-Levallois (France),France,/player/Victor-Wembanyama/Summary/136048,All Leagues,44,44,.571,.509,7.0,30.0,19.4,14.5,13.6,1.3,9.6,30.8,155.8,-3.9,1.3,109.8,100.2,24.5
+2,Brandon Miller,CHA,F,6-7,200,20,Alabama,United States,/player/Brandon-Miller/Summary/151234,,37,,.583,.533,7.0,18.6,13.1,12.7,12.0,1.5,2.4,26.3,167.3,-2.4,1.3,119.7,90.5,24.1
+3,Scoot Henderson,POR,G,6-3,206,19,NBA G League Ignite,United States,/player/Scoot-Henderson/Summary/151559,,,,,,,,,,,,,,,,,,,
+4,Amen Thompson,HOU,G,6-7,200,20,Overtime Elite (Georgia),United States,/player/Amen-Thompson/Summary/176051,,,,,,,,,,,,,,,,,,,
+5,Ausar Thompson,DET,G,6-6,205,20,Overtime Elite (Georgia),United States,/player/Ausar-Thompson/Summary/176052,,,,,,,,,,,,,,,,,,,
+6,Anthony Black,ORL,G,6-7,200,19,Arkansas,United States,/player/Anthony-Black/Summary/176057,,36,,.549,.495,4.6,13.5,9.1,20.9,20.6,3.4,1.9,21.3,145.9,-1.2,1.4,104.8,95.1,17.9
+7,Bilal Coulibaly,IND,GF,6-8,195,18,Boulogne-Levallois (France),France,/player/Bilal-Coulibaly/Summary/175550,All Leagues,53,34,.614,.578,6.3,13.7,10.2,10.5,15.5,3.1,2.0,20.0,156.8,-2.7,1.5,114.4,100.7,17.5
+8,Jarace Walker,WAS,G,6-7,235,19,Houston,United States,/player/Jarace-Walker/Summary/135362,,36,,.534,.516,10.1,18.9,14.6,12.5,12.3,2.2,6.2,22.5,147.4,-1.0,1.2,114.4,85.2,22.5
+9,Taylor Hendricks,UTH,F,6-9,215,19,UCF,United States,/player/Taylor-Hendricks/Summary/149561,,34,,.589,.557,8.5,16.8,12.6,8.6,9.9,1.6,6.1,21.4,165.3,-1.5,1.3,122.1,95.6,23.0
+10,Cason Wallace,DAL,G,6-3,195,19,Kentucky,United States,/player/Cason-Wallace/Summary/170045,,32,,.543,.516,3.5,10.8,7.1,24.3,16.3,3.6,1.6,20.0,154.9,2.4,1.2,113.5,98.5,19.0
+11,Jett Howard,ORL,GF,6-6,215,19,Michigan,United States,/player/Jett-Howard/Summary/135128,,29,,.562,.532,1.0,9.0,5.2,12.9,9.2,0.8,2.1,23.1,158.2,0.3,1.2,112.7,104.5,17.3
+12,Dereck Lively II,OKC,C,7-1,230,19,Duke,United States,/player/Dereck-Lively-II/Summary/150098,,34,,.662,.667,12.7,18.3,15.6,9.8,14.7,1.5,12.5,11.6,141.2,0.2,1.5,134.0,89.9,22.9
+13,Gradey Dick,TOR,GF,6-6,200,19,Kansas,United States,/player/Gradey-Dick/Summary/151289,,36,,.581,.547,4.2,14.3,9.4,9.3,9.4,2.5,0.8,20.5,169.8,-0.4,1.3,116.8,97.1,18.8
+14,Jordan Hawkins,NOP,G,6-5,190,21,UConn,United States,/player/Jordan-Hawkins/Summary/151351,,64,,.564,.512,3.8,11.2,7.5,7.9,10.2,1.4,2.0,24.8,164.3,-2.4,1.3,118.2,98.5,19.0
+15,Kobe Bufkin,ATL,G,6-5,200,19,Michigan,United States,/player/Kobe-Bufkin/Summary/151485,,61,,.559,.522,3.0,12.0,7.6,14.0,13.9,2.2,1.9,20.9,162.2,-0.7,1.2,109.5,101.7,17.5
+16,Keyonte George,UTH,G,6-4,185,19,Baylor,United States,/player/Keyonte-George/Summary/151235,,33,,.524,.470,4.4,14.5,9.3,19.8,16.4,2.3,0.7,30.7,150.7,-3.6,1.2,104.7,103.2,18.4
+17,Jalen Hood-Schifino,LAL,PG,6-5,210,20,Indiana,United States,/player/Jalen-Hood-Schifino/Summary/136030,,32,,.492,.463,1.7,12.4,7.5,20.0,16.9,1.4,0.8,25.8,152.7,-1.0,1.1,95.9,102.7,13.7
+18,"Jaime Jaquez, Jr.",MIA,GF,6-6,225,22,UCLA,United States/Mexico,/player/Jaime-Jaquez-Jr/Summary/103926,,134,,.550,.516,7.5,16.9,12.1,12.5,10.9,2.5,1.9,22.6,154.0,-0.6,1.3,115.4,95.2,22.3
+19,Brandin Podziemski,GOS,G,6-4,205,20,Santa Clara,United States,/player/Brandin-Podziemski/Summary/175953,,47,,.599,.568,5.7,22.1,14.1,20.2,12.3,2.7,1.3,25.4,167.5,0.3,1.4,121.1,96.1,26.7
+20,Cam Whitmore,HOU,F,6-7,230,18,Villanova,United States,/player/Cam-Whitmore/Summary/176080,,26,,.571,.551,4.0,21.5,12.9,6.3,12.8,3.2,1.6,25.9,152.4,-4.3,1.3,105.3,97.9,21.2
+21,Noah Clowney,BRK,F,6-9,210,18,Alabama,United States,/player/Noah-Clowney/Summary/162215,,36,,.576,.553,9.1,22.6,16.3,6.1,13.1,1.3,3.4,18.1,141.8,-2.7,1.4,117.0,88.8,19.2
+22,Dariq Whitehead,BRK,F,6-6,220,18,Duke,United States,/player/Dariq-Whitehead/Summary/143334,,28,,.548,.528,2.6,11.1,7.0,9.4,15.6,2.2,1.1,22.8,163.9,-3.9,1.2,103.3,100.0,14.8
+23,Kris Murray,POR,F,6-8,216,22,Iowa,United States,/player/Kris-Murray/Summary/163409,,77,,.569,.547,9.2,16.8,13.0,10.7,8.2,2.0,4.0,26.0,152.0,-0.5,1.3,120.3,100.4,26.2
+24,Olivier-Maxence Prosper,SAC,F,6-7,230,20,Marquette,Canada,/player/Olivier-Maxence-Prosper/Summary/133797,,90,,.581,.538,6.2,13.1,9.8,5.6,12.4,2.0,0.7,18.9,154.3,-2.5,1.4,113.0,100.7,16.3
+25,Marcus Sasser,MEM,G,6-2,195,22,Houston,United States,/player/Marcus-Sasser/Summary/148690,,107,,.560,.524,1.3,9.0,5.2,16.0,10.1,2.8,0.5,23.3,159.9,0.9,1.2,120.3,92.2,20.5
+26,Ben Sheppard,IND,G,6-6,190,21,Belmont,United States,/player/Ben-Sheppard/Summary/151867,,124,,.583,.563,3.3,13.6,8.7,12.5,12.0,2.2,0.6,23.1,154.1,-0.8,1.3,112.0,98.3,19.5
+27,"Nick Smith, Jr.",CHA,G,6-2,185,19,Arkansas,United States,/player/Nick-Smith-Jr/Summary/151487,,17,,.472,.436,1.1,6.8,3.9,13.7,10.7,1.8,0.5,28.8,145.4,-1.7,1.1,96.4,104.6,13.9
+28,Brice Sensabaugh,UTH,F,6-5,235,19,Ohio State,United States,/player/Brice-Sensabaugh/Summary/182894,,33,,.587,.554,6.6,20.1,13.5,10.8,12.8,1.3,1.8,34.0,171.6,-5.3,1.3,113.9,101.8,27.1
+29,Julian Strawther,IND,GF,6-6,205,21,Gonzaga,United States/Puerto Rico,/player/Julian-Strawther/Summary/117369,,94,,.608,.581,4.5,17.1,11.3,5.7,9.9,1.3,1.0,20.6,161.3,-1.6,1.4,121.5,96.7,19.6
+30,Kobe Brown,LAC,GF,6-7,250,23,Missouri,United States,/player/Kobe-Brown/Summary/108567,,123,,.577,.542,8.1,20.4,14.3,14.1,15.1,2.5,2.4,22.4,155.3,-2.3,1.3,112.7,98.7,21.8
+31,James Nnaji,DET,C,6-11,250,18,FC Barcelona II (Spain),Nigeria,/player/James-Nnaji/Summary/168792,All Leagues,56,9,.688,.717,13.2,18.2,15.8,5.4,22.8,0.9,6.4,17.9,122.4,-6.6,1.7,113.3,103.5,17.0
+32,Jalen Pickett,IND,F,6-2,202,23,Penn State,United States,/player/Jalen-Pickett/Summary/135782,,144,,.544,.520,3.5,14.4,9.1,35.0,13.1,2.1,2.4,24.4,155.1,5.2,1.2,115.2,101.1,21.5
+33,Leonard Miller,SAN,F,6-10,220,19,NBA G League Ignite,Canada,/player/Leonard-Miller/Summary/150556,,,,,,,,,,,,,,,,,,,
+34,Colby Jones,CHA,GF,6-6,207,21,Xavier,United States,/player/Colby-Jones/Summary/148719,,86,,.569,.542,6.4,15.4,11.0,19.9,16.1,2.4,1.6,19.7,151.7,1.0,1.3,113.6,100.9,19.6
+35,Julian Phillips,BOS,F,6-8,198,19,Tennessee,United States,/player/Julian-Phillips/Summary/162086,,32,,.536,.440,8.9,14.6,11.8,11.4,14.2,1.6,2.9,19.2,147.3,-1.4,1.4,115.0,89.3,17.0
+36,"Andre Jackson, Jr.",ORL,G,6-6,209,21,UConn,United States,/player/Andre-Jackson-Jr/Summary/133189,,85,,.514,.484,6.2,18.7,12.5,22.2,24.1,2.2,2.0,14.2,142.3,1.9,1.2,107.2,94.1,14.7
+37,Hunter Tyson,OKC,SF,6-8,215,23,Clemson,United States,/player/Hunter-Tyson/Summary/132189,,140,,.587,.553,5.0,22.7,14.1,8.1,9.1,1.7,1.3,20.1,160.8,-0.8,1.3,117.7,95.0,18.7
+38,Jordan Walsh,SAC,F,6-7,208,19,Arkansas,United States,/player/Jordan-Walsh/Summary/151494,,36,,.513,.479,6.2,13.6,9.9,6.7,13.0,2.6,2.0,16.2,142.3,-1.7,1.2,105.5,96.5,13.1
+39,Mouhamed Gueye,CHA,F,6-10,210,20,Washington State,Senegal,/player/Mouhamed-Gueye/Summary/160946,,68,,.523,.504,11.3,18.3,14.7,9.8,13.8,1.9,3.6,22.8,137.9,-3.3,1.2,108.0,95.9,20.2
+40,Maxwell Lewis,DEN,SF,6-7,215,20,Pepperdine,United States,/player/Maxwell-Lewis/Summary/139158,,52,,.560,.520,4.7,15.0,9.9,16.6,18.0,2.0,2.5,28.9,160.1,-5.0,1.3,101.9,105.9,19.4
+41,Amari Bailey,CHA,G,6-5,185,19,UCLA,United States,/player/Amari-Bailey/Summary/142391,,30,,.553,.533,3.9,13.7,8.8,14.6,19.4,2.5,1.3,23.8,158.2,-3.7,1.2,101.1,92.3,16.9
+42,Tristan Vukcevic,WAS,F,7-0,220,20,KK Partizan (Serbia),Italy/Serbia,/player/Tristan-Vukcevic/Summary/136227,All Leagues,40,12,.665,.633,6.5,21.9,14.7,12.9,15.7,2.1,3.4,21.3,173.1,-1.7,1.5,122.4,106.0,19.4
+43,Rayan Rupert,POR,G,6-7,202,19,New Zealand (New Zealand),France,/player/Rayan-Rupert/Summary/152400,All Leagues,31,18,.489,.436,3.2,12.0,7.5,7.3,13.6,2.1,0.9,20.1,142.0,-3.0,1.1,97.7,105.1,10.0
+44,Sidy Cissoko,SAN,GF,6-6,220,19,NBA G League Ignite,France,/player/Sidy-Cissoko/Summary/175693,,,,,,,,,,,,,,,,,,,
+45,G.G. Jackson,MEM,PF,6-9,215,18,South Carolina,United States,/player/GG-Jackson/Summary/182761,,32,,.474,.444,5.7,17.6,11.4,6.6,14.2,1.4,2.8,30.9,138.5,-7.0,1.1,93.3,108.4,15.7
+46,Seth Lundy,ATL,GF,6-4,220,23,Penn State,United States,/player/Seth-Lundy/Summary/120267,,121,,.558,.523,4.0,16.7,10.4,5.5,10.7,1.6,2.3,21.4,159.4,-2.6,1.2,109.8,101.2,17.6
+47,Mojave King,LAL,G,6-5,195,21,NBA G League Ignite,New Zealand,/player/Mojave-King/Summary/138963,,,,,,,,,,,,,,,,,,,
+48,Jordan Miller,LAC,G,6-5,194,23,Miami (FL),United States,/player/Jordan-Miller/Summary/139875,,142,,.585,.557,8.6,13.4,11.0,10.2,11.2,2.2,1.5,19.6,157.4,-0.9,1.3,120.0,102.7,19.3
+49,Emoni Bates,CLE,SF,6-8,202,19,Eastern Michigan,United States,/player/Emoni-Bates/Summary/117537,,48,,.520,.480,2.9,16.1,9.6,9.6,14.0,1.3,1.8,29.1,147.9,-5.1,1.2,100.1,108.9,16.9
+50,Keyontae Johnson,OKC,F,6-4,230,23,Kansas State,United States,/player/Keyontae-Johnson/Summary/117566,,108,,.593,.568,7.0,20.4,13.8,12.3,15.4,2.2,1.1,23.3,162.6,-3.3,1.4,112.4,95.2,19.6
+51,Jalen Wilson,BRK,F,6-6,220,22,Kansas,United States,/player/Jalen-Wilson/Summary/117480,,104,,.535,.494,6.7,21.7,14.4,12.3,12.1,1.4,1.4,24.5,148.2,-1.6,1.3,110.0,95.1,20.4
+52,Toumani Camara,PHX,SF,6-7,229,23,Dayton,Belgium,/player/Toumani-Camara/Summary/108765,,125,,.566,.548,9.1,20.0,14.7,10.1,18.4,2.0,3.2,22.1,145.1,-4.7,1.3,105.6,95.9,19.3
+53,Jaylen Clark,MIN,G,6-4,205,21,UCLA,United States,/player/Jaylen-Clark/Summary/132635,,90,,.546,.524,9.3,16.8,13.0,10.1,10.2,4.0,1.2,20.4,145.3,-0.5,1.3,116.7,91.2,22.4
+54,Jalen Slawson,SAC,F,6-7,215,23,Furman,United States,/player/Jalen-Slawson/Summary/140024,,153,,.610,.572,6.4,20.8,13.7,18.0,18.9,3.0,5.6,21.5,160.2,-1.3,1.5,115.0,92.6,21.4
+55,Isaiah Wong,IND,G,6-4,184,22,Miami (FL),United States,/player/Isaiah-Wong/Summary/120268,,132,,.553,.502,3.4,12.1,7.8,14.0,11.9,1.9,1.3,24.2,159.4,-0.9,1.3,111.1,105.8,19.9
+56,Tarik Biberovic,MEM,G,6-7,218,22,Fenerbahce Beko (Turkey),Bosnia and Herzegovina/Turkey,/player/Tarik-Biberovic/Summary/105732,All Leagues,36,8,.515,.490,5.4,14.9,9.9,5.2,11.8,1.8,0.5,18.1,154.3,-2.3,1.1,104.4,113.2,9.5
+57,Trayce Jackson-Davis,WAS,F,6-9,245,23,Indiana,United States,/player/Trayce-Jackson-Davis/Summary/126857,,126,,.596,.566,10.3,21.9,16.2,15.2,11.3,1.3,7.5,26.8,124.2,-1.5,1.5,119.8,94.6,30.4
+58,Chris Livingston,MIL,F,6-6,220,19,Kentucky,United States,/player/Chris-Livingston/Summary/117541,,34,,.513,.478,6.0,16.8,11.4,5.5,12.9,1.2,1.7,15.8,145.7,-2.0,1.2,108.2,102.2,12.5
+0,Colin Castleton,,PF,6-10,250,23,Florida,United States,/player/Colin-Castleton/Summary/132158,,122,,.583,.538,10.1,20.4,15.4,12.6,15.0,1.5,8.3,25.7,132.9,-3.6,1.4,113.2,91.2,24.6
+0,Tosan Evbuomwan,,SF,6-7,217,22,Princeton,England,/player/Tosan-Evbuomwan/Summary/139067,,85,,.554,.538,7.0,16.4,11.7,28.9,17.1,2.0,1.6,26.3,138.7,1.0,1.3,111.0,99.0,23.3
+0,Trey Jemison,,PF,6-11,275,23,UAB,United States,/player/Trey-Jemison/Summary/132196,,151,,.585,.567,12.3,21.9,17.1,5.4,17.3,1.2,7.7,15.4,120.7,-3.4,1.4,114.8,91.1,17.5
+0,Jaylen Martin,,F,6-6,216,19,Overtime Elite (Georgia),United States,/player/Jaylen-Martin/Summary/176091,,,,,,,,,,,,,,,,,,,
+0,Pete Nance,,PF,6-10,220,23,North Carolina,United States,/player/Pete-Nance/Summary/127259,,137,,.539,.511,4.2,20.9,12.6,14.3,13.2,0.9,4.0,21.1,155.5,-0.8,1.2,105.2,99.2,16.1
+0,Miles Norris,,PF,6-7,200,23,UC Santa Barbara,United States,/player/Miles-Norris/Summary/88985,,117,,.586,.557,5.9,17.0,11.6,8.4,11.0,1.9,2.9,19.6,162.0,-1.2,1.3,116.9,95.5,18.1
+0,Drew Peterson,,F,6-9,205,23,USC,United States,/player/Drew-Peterson/Summary/120120,,164,,.536,.499,4.0,16.0,10.2,19.6,17.7,1.5,1.7,19.9,153.3,-0.2,1.2,106.0,100.5,14.9
+0,"Craig Porter, Jr.",,G,6-2,176,23,Wichita State,United States,/player/Craig-Porter-Jr/Summary/148184,,75,,.535,.508,3.4,15.6,9.9,26.4,18.6,2.1,4.2,17.3,150.4,1.9,1.2,105.9,93.4,17.8
+0,Timmy Allen,,SF,6-6,210,23,Texas,United States,/player/Timmy-Allen/Summary/89079,,154,,.544,.493,6.5,17.4,12.0,19.4,16.1,2.1,1.1,24.9,146.0,-1.4,1.3,108.3,99.6,18.4
+0,Marcus Bagley,,SF,6-6,217,21,Arizona State,United States,/player/Marcus-Bagley/Summary/117326,,17,,.518,.484,5.4,17.0,11.0,8.3,13.1,1.2,1.5,21.1,142.0,-2.6,1.2,102.6,101.3,13.9
+0,Damion Baugh,,SG,6-4,195,22,TCU,United States,/player/Damion-Baugh/Summary/134992,,117,,.501,.468,2.7,13.4,8.2,26.3,24.0,2.7,1.0,18.6,138.4,0.3,1.2,96.4,92.8,13.7
+0,Leaky Black,,SF,6-6,209,24,North Carolina,United States,/player/Leaky-Black/Summary/104356,,155,,.485,.450,5.3,13.7,9.5,13.2,16.5,2.2,2.3,12.0,143.2,1.1,1.1,106.5,98.7,11.5
+0,Yuri Collins,,G,6-0,190,22,Saint Louis,United States,/player/Yuri-Collins/Summary/134165,,116,,.508,.461,1.1,10.5,5.9,40.0,28.5,2.7,0.3,18.2,147.2,5.1,1.2,101.0,98.6,14.9
+0,Dexter Dennis,,GF,6-5,205,24,Texas A&M,United States,/player/Dexter-Dennis/Summary/131930,,146,,.505,.468,5.6,15.1,10.3,8.0,11.6,1.3,2.6,17.9,147.7,-1.5,1.1,106.6,97.3,12.8
+0,Alex Fudge,,F,6-8,200,20,Florida,United States,/player/Alex-Fudge/Summary/151286,,61,,.459,.434,9.8,16.2,13.1,4.1,16.1,2.1,4.5,18.0,122.8,-4.2,1.1,93.5,92.4,12.8
+0,Andrew Funk,,SG,6-5,200,23,Penn State,United States,/player/Andrew-Funk/Summary/132414,,147,,.545,.525,0.8,11.3,6.2,10.8,10.7,1.2,0.5,20.8,156.2,-0.7,1.2,104.3,108.7,13.3
+0,E.J. Harkless,,PG,6-3,195,23,UNLV,United States,/player/EJ-Harkless/Summary/107567,,132,,.523,.479,3.7,16.6,10.1,18.1,17.2,3.2,0.9,23.8,143.6,-1.8,1.3,101.4,100.6,16.1
+0,D'Moi Hodge,,F,6-4,180,24,Missouri,U.S. Virgin Islands,/player/DMoi-Hodge/Summary/150689,,92,,.581,.563,3.0,11.7,7.3,10.6,9.2,4.1,2.6,23.6,154.5,-0.6,1.3,115.7,98.1,22.4
+0,Yuki Kawamura,,G,5-8,159,22,,Japan,/player/Yuki-Kawamura/Summary/133875,B.League,56,51,.551,.508,1.7,11.4,6.5,54.0,14.8,2.7,0.3,33.6,157.8,8.5,1.2,112.9,105.6,22.0
+0,Taevion Kinsey,,GF,6-5,190,23,Marshall,United States,/player/Taevion-Kinsey/Summary/139781,,154,,.566,.531,5.8,9.5,7.7,19.9,12.3,1.7,1.1,23.9,154.0,0.7,1.3,115.4,104.2,20.0
+0,Nate Mensah,,F,6-9,220,25,San Diego State,Ghana,/player/Nate-Mensah/Summary/108581,,146,,.558,.536,12.4,21.7,17.1,5.2,14.6,1.7,9.5,16.9,137.9,-3.1,1.4,113.2,87.1,18.6
+0,Markquis Nowell,,PG,5-7,160,23,Kansas State,United States,/player/Markquis-Nowell/Summary/108203,,131,,.542,.483,1.7,10.3,6.1,35.5,20.0,3.7,0.1,26.1,160.8,1.4,1.3,105.4,98.1,18.0
+0,Liam Robbins,,C,7-0,250,23,Vanderbilt,United States,/player/Liam-Robbins/Summary/133540,,129,,.546,.505,10.4,20.0,15.3,8.6,12.4,1.3,12.3,27.1,147.6,-4.0,1.3,109.1,94.3,23.1
+0,Terquavion Smith,,G,6-4,160,20,NC State,United States,/player/Terquavion-Smith/Summary/150383,,66,,.507,.482,2.7,11.3,6.7,19.4,10.4,2.4,1.4,28.8,144.0,0.4,1.1,107.0,105.8,20.2
+0,Erik Stevenson,,G,6-4,205,24,West Virginia,United States,/player/Erik-Stevenson/Summary/120273,,159,,.504,.467,2.7,15.6,9.0,19.2,14.8,2.5,1.0,24.4,152.8,-1.2,1.1,101.5,97.9,14.7
+0,Drew Timme,,F,6-10,235,22,Gonzaga,United States,/player/Drew-Timme/Summary/117478,,134,,.637,.624,9.9,17.7,14.1,15.9,13.1,1.0,3.1,27.5,152.4,-1.4,1.6,125.1,95.6,29.8
+0,Angelo Allegri,,F,6-7,215,24,Eastern Washington,United States,/player/Angelo-Allegri/Summary/142804,,165,,.543,.528,5.0,14.6,9.7,10.1,14.6,1.5,0.6,19.7,146.5,-2.1,1.2,106.7,100.6,13.6
+0,Matt Bradley,,SG,6-4,220,23,San Diego State,United States,/player/Matt-Bradley/Summary/127264,,156,,.551,.501,3.5,14.9,9.1,16.1,13.6,1.4,1.0,27.8,163.3,-2.7,1.3,107.2,102.0,18.1
+0,Kihei Clark,,PG,5-10,167,23,Virginia,United States,/player/Kihei-Clark/Summary/95889,,161,,.510,.459,1.5,9.1,5.4,26.7,19.4,1.8,0.3,19.0,153.1,3.0,1.2,103.0,98.9,12.6
+0,Antoine Davis,,SG,6-1,165,24,Detroit-Mercy,United States,/player/Antoine-Davis/Summary/132243,,144,,.551,.507,1.3,8.8,4.9,27.2,13.4,2.0,0.1,36.1,167.6,-2.2,1.2,110.5,112.6,22.2
+0,Kendric Davis,,PG,5-11,180,24,Memphis,United States,/player/Kendric-Davis/Summary/108183,,146,,.564,.497,1.9,10.4,6.3,32.2,14.9,2.7,0.3,27.1,162.4,2.6,1.4,115.2,99.9,21.0
+0,Armaan Franklin,,G,6-4,204,22,Virginia,United States,/player/Armaan-Franklin/Summary/132432,,121,,.517,.489,1.9,12.9,7.4,12.6,11.9,2.0,1.1,22.4,146.2,-1.0,1.2,101.7,99.6,15.0
+0,Myron Gardner,,G,6-6,220,22,Little Rock,United States,/player/Myron-Gardner/Summary/134269,,54,,.529,.477,7.4,23.0,15.1,19.0,18.3,1.4,1.3,21.7,152.6,-1.2,1.3,102.4,103.3,16.9
+0,Patrick Gardner,,C,6-11,240,24,Marist,United States/Egypt,/player/Patrick-Gardner/Summary/165610,,33,,.573,.555,5.0,20.0,12.0,19.0,13.0,1.0,3.0,33.0,155.6,-4.0,1.3,108.0,99.0,26.0
+0,Dane Goodwin,,SG,6-6,214,23,Notre Dame,United States,/player/Dane-Goodwin/Summary/88962,,158,,.555,.525,3.7,12.5,8.2,9.4,8.6,1.1,0.6,18.5,165.8,0.2,1.2,113.0,107.0,14.7
+0,Devon Higgs,,G,6-5,198,23,Georgia Southwestern State,United States,/player/Devon-Higgs/Summary/140872,,118,,.539,.516,-,-,-,-,23.9,-,-,-,137.7,-,1.3,-,-,-
+0,Tevian Jones,,PF,6-7,200,22,Southern Utah,United States,/player/Tevian-Jones/Summary/107570,,124,,.543,.490,3.1,13.7,8.4,6.9,12.5,1.7,0.4,26.5,157.5,-4.3,1.3,106.3,101.6,16.1
+0,Keshawn Justice,,SF,6-7,225,23,Santa Clara,United States,/player/Keshawn-Justice/Summary/132301,,144,,.550,.518,1.6,14.1,8.1,12.1,8.8,1.5,1.1,18.3,160.9,1.1,1.2,112.5,101.6,14.5
+0,Gabe Kalscheur,,SG,6-4,194,24,Iowa State,United States,/player/Gabe-Kalscheur/Summary/132179,,156,,.502,.475,2.3,6.6,4.4,9.5,13.6,2.0,0.7,19.8,144.4,-2.2,1.1,98.3,101.4,10.0
+0,Miller Kopp,,F,6-7,220,24,Indiana,United States,/player/Miller-Kopp/Summary/120262,,157,,.537,.505,2.2,9.4,5.9,8.2,11.7,1.3,0.9,17.3,163.6,-1.0,1.2,103.7,103.6,11.0
+0,Matthew Mayer,,SF,6-9,225,23,Illinois,United States,/player/Matthew-Mayer/Summary/116242,,159,,.521,.494,5.8,18.1,11.9,10.2,11.5,2.8,3.4,24.4,144.1,-2.1,1.2,109.2,92.0,18.5
+0,Caleb McConnell,,GF,6-7,195,24,Rutgers,United States,/player/Caleb-McConnell/Summary/104410,,142,,.465,.429,4.8,14.9,9.8,14.1,16.6,3.8,1.5,18.4,138.0,-1.0,1.0,95.5,94.1,13.1
+0,Darius McGhee,,G,5-9,180,24,Liberty,United States,/player/Darius-McGhee/Summary/140164,,168,,.594,.566,1.6,13.6,7.9,16.1,10.5,2.3,0.8,27.9,169.1,-0.2,1.3,115.0,92.9,21.8
+0,"Mike Miles, Jr.",,G,6-2,195,20,TCU,United States,/player/Mike-Miles-Jr/Summary/117532,,83,,.534,.485,0.9,10.6,5.8,20.5,15.4,2.0,0.8,26.4,152.7,-1.6,1.3,104.9,100.9,17.5
+0,Seth Millner,,F,6-6,200,22,Toledo,United States,/player/Seth-Millner/Summary/140049,,130,,.560,.530,4.7,14.5,10.0,9.9,11.3,0.7,0.3,19.8,156.9,-0.5,1.3,113.1,104.7,17.4
+0,Omari Moore,,F,6-6,185,22,San Jose State,United States,/player/Omari-Moore/Summary/152017,,117,,.532,.507,3.4,13.2,8.2,26.7,19.6,2.0,2.6,22.2,148.4,-0.4,1.2,101.0,107.4,17.3
+0,Nick Ongenda,,C,6-11,230,22,DePaul,United States,/player/Nick-Ongenda/Summary/148679,,82,,.542,.529,8.7,12.7,10.7,5.8,16.4,1.1,9.5,18.6,110.2,-4.2,1.3,103.8,100.5,17.1
+0,Sam Peek,,F,6-7,195,24,Stetson,United States,/player/Sam-Peek/Summary/147488,,31,,.542,.520,6.0,21.0,13.0,7.0,15.7,1.0,1.0,18.0,144.5,-2.0,1.2,106.0,106.0,15.0
+0,Justin Powell,,SG,6-5,197,22,Washington State,United States,/player/Justin-Powell/Summary/135690,,74,,.557,.534,2.3,13.4,7.7,17.2,12.1,1.3,0.6,16.4,160.6,2.1,1.2,116.9,100.0,15.2
+0,Will Richardson,,PG,6-5,170,23,Oregon,United States,/player/Will-Richardson/Summary/127258,,148,,.563,.528,3.2,9.5,6.4,20.8,18.4,2.5,0.5,19.6,159.9,0.5,1.3,110.4,101.3,15.2
+0,David Singleton,,SG,6-4,210,24,UCLA,United States,/player/David-Singleton/Summary/88993,,164,,.601,.583,1.4,9.3,5.3,8.1,7.5,1.9,0.7,12.9,162.3,1.2,1.3,126.1,101.3,12.8
+0,Brandon Slater,,SF,6-7,220,23,Villanova,United States,/player/Brandon-Slater/Summary/104830,,143,,.580,.528,5.0,11.5,8.3,9.2,14.5,2.1,1.6,14.6,160.2,-0.7,1.4,116.3,100.2,13.1
+0,Jake Stephens,,C,6-11,270,23,Chattanooga,United States,/player/Jake-Stephens/Summary/140038,,144,,.627,.590,6.0,21.9,14.2,19.7,15.4,1.2,6.2,24.4,169.1,-1.0,1.5,119.5,101.0,23.8
+0,Azuolas Tubelis,,F,6-10,245,21,Arizona,Lithuania,/player/Azuolas-Tubelis/Summary/120959,,97,,.590,.560,10.7,19.8,15.6,14.2,14.8,2.0,2.5,27.7,155.3,-3.7,1.4,114.2,93.7,25.5
+0,Vincent Valerio-Bodon,,GF,6-9,200,22,,Hungary,/player/Vincent-Valerio-Bodon/Summary/137526,NBIA,30,30,.653,.624,4.1,14.1,9.6,10.6,16.8,1.9,3.2,14.5,179.3,-0.4,1.4,119.5,109.1,14.5
+0,Kamarion Williams,,F,6-10,250,23,LSU,United States,/player/Kamarion-Williams/Summary/140139,,157,,.607,.590,10.8,20.7,15.9,6.6,10.7,2.3,2.8,25.0,161.8,-3.3,1.4,120.4,93.2,24.8
+0,Ricky Council IV,,G,6-6,207,21,Arkansas,United States,/player/Ricky-Council-IV/Summary/138420,,85,,.541,.477,4.2,13.4,8.8,13.6,13.8,2.0,1.3,24.9,152.1,-2.6,1.3,107.9,98.0,19.1
+0,Adam Flagler,,G,6-3,185,23,Baylor,United States,/player/Adam-Flagler/Summary/140202,,127,,.576,.549,2.5,8.0,5.2,16.3,10.0,1.9,0.5,22.3,164.1,1.3,1.3,120.2,103.2,17.9
+0,Adama Sanogo,,PF,6-9,245,21,UConn,Mali,/player/Adama-Sanogo/Summary/137251,,91,,.591,.570,12.4,21.4,16.9,9.3,14.0,1.6,5.1,27.2,163.4,-5.0,1.3,115.8,92.3,27.3
+0,Jacob Toppin,,SF,6-8,200,23,Kentucky,United States,/player/Jacob-Toppin/Summary/134925,,116,,.532,.499,6.9,16.3,11.6,10.1,11.3,1.1,2.1,17.7,145.5,-0.5,1.2,113.2,99.6,16.7
+0,Oscar Tshiebwe,,F,6-8,255,23,Kentucky,Democratic Republic of the Congo,/player/Oscar-Tshiebwe/Summary/117422,,107,,.606,.573,19.5,29.9,24.6,6.9,13.3,2.6,4.4,23.3,127.8,-4.1,1.5,124.7,87.9,31.9
+0,Charles Bediako,,FC,7-0,225,21,Alabama,Canada,/player/Charles-Bediako/Summary/119490,,70,,.646,.673,13.3,14.9,14.2,6.4,14.7,1.8,8.3,14.3,116.2,-2.1,1.6,126.6,93.9,21.7
+0,Malcolm Cazalon,,G,6-6,185,21,KK Mega Bemax (Serbia),France,/player/Malcolm-Cazalon/Summary/108580,All Leagues,39,35,.573,.531,2.3,11.9,7.3,18.7,15.1,3.6,1.2,23.4,156.4,-0.4,1.3,108.8,110.1,16.5
+0,Jazian Gortman,,G,6-1,175,20,Overtime Elite (Georgia),United States,/player/Jazian-Gortman/Summary/176050,,,,,,,,,,,,,,,,,,,
+0,Sir'Jabari Rice,,G,6-4,180,24,Texas,United States,/player/SirJabari-Rice/Summary/122408,,149,,.574,.525,5.2,15.2,10.2,15.8,15.0,1.7,1.4,22.7,158.4,-1.3,1.4,115.1,96.0,17.9
+0,Chase Audige,,SG,6-4,200,23,Northwestern,United States,/player/Chase-Audige/Summary/132309,,113,,.487,.460,3.6,11.5,7.5,15.9,14.4,3.5,2.0,24.1,142.3,-1.5,1.1,95.5,99.8,14.1
+0,Souley Boum,,G,6-3,175,24,Xavier,United States,/player/Souley-Boum/Summary/121540,,159,,.549,.476,1.9,11.9,6.9,16.4,11.7,2.0,0.5,26.0,160.4,-0.5,1.3,110.4,101.3,17.7
+0,Javonte Cooke,,G,6-6,185,23,Winston-Salem State,United States,/player/Javonte-Cooke/Summary/124004,,85,,.559,.529,-,-,-,-,13.2,-,-,-,152.7,-,1.3,-,-,-
+0,Caleb Daniels,,G,6-4,210,24,Villanova,United States,/player/Caleb-Daniels/Summary/121516,,154,,.549,.507,3.3,12.1,7.7,14.2,14.1,1.3,0.9,23.0,155.8,-1.7,1.3,106.7,105.7,14.4
+0,Taylor Funk,,PF,6-8,230,25,Utah State,United States,/player/Taylor-Funk/Summary/105815,,154,,.569,.544,4.8,15.5,10.2,10.4,10.5,1.4,2.0,20.0,161.4,-0.7,1.2,112.4,103.6,16.2
+0,Joey Hauser,,PF,6-9,230,23,Michigan State,United States,/player/Joey-Hauser/Summary/104387,,131,,.607,.568,5.6,18.8,12.5,13.3,16.3,0.8,0.7,19.2,169.7,-1.6,1.4,115.3,102.1,15.9
+0,Javan Johnson,,F,6-6,192,24,DePaul,United States,/player/Javan-Johnson/Summary/122354,,127,,.528,.511,3.6,12.3,8.0,12.1,15.8,1.1,3.0,20.4,150.3,-2.4,1.1,100.2,108.8,12.4
+0,Jarkel Joiner,,G,6-1,181,24,NC State,United States,/player/Jarkel-Joiner/Summary/122378,,148,,.519,.475,2.6,10.7,6.5,12.7,8.5,1.9,0.3,22.9,157.5,0.2,1.2,112.1,103.5,16.2
+0,Hunter Maldonado,,SF,6-7,202,24,Wyoming,United States,/player/Hunter-Maldonado/Summary/88816,,157,,.535,.486,3.3,15.0,9.2,26.7,17.2,2.1,1.0,24.8,144.7,-,1.3,104.4,102.1,16.7
+0,Joirdon Nicholas,,F,6-9,220,24,Texas Southern,United States,/player/Joirdon-Nicholas/Summary/122054,,131,,.534,.534,11.2,21.6,16.4,9.1,18.1,1.7,4.7,23.3,104.1,-5.7,1.3,100.9,92.9,17.4
+0,Landers Nolley II,,SF,6-7,208,23,Cincinnati,United States,/player/Landers-Nolley-II/Summary/125786,,125,,.527,.495,3.6,15.5,9.7,16.7,14.7,1.8,1.2,26.6,155.1,-2.3,1.2,103.2,96.5,17.8
+0,Kevin Obanor,,F,6-8,235,24,Texas Tech,United States,/player/Kevin-Obanor/Summary/129511,,156,,.621,.574,9.7,20.1,15.0,5.4,13.0,0.9,2.1,23.4,170.2,-4.2,1.5,121.6,100.3,21.3
+0,Nate Roberts,,PF,6-11,235,23,Motor City Cruise,United States,/player/Nate-Roberts/Summary/104828,,,,,,,,,,,,,,,,,,,
+0,Malachi Smith,,G,6-4,205,23,Gonzaga,United States,/player/Malachi-Smith/Summary/140069,,132,,.586,.545,6.0,18.2,12.1,16.7,13.6,2.7,0.4,23.8,170.9,-0.6,1.3,117.6,98.0,21.8
+0,Jordan Walker,,G,5-11,170,23,UAB,United States,/player/Jordan-Walker/Summary/121493,,137,,.542,.499,1.1,8.0,4.5,25.6,15.1,2.8,0.1,27.8,160.7,-0.2,1.2,107.1,101.6,17.8
