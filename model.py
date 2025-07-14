@@ -50,7 +50,7 @@ if len(sys.argv) != 2:
 
 #create path to draft class folder, match all individual file paths using glob
 test_file_name = sys.argv[1]
-path = "allPlayerData/"
+path = "allUpdatedPlayerData/"
 pattern = os.path.join(path, "all_players_career_stats_*.csv")
 all_files = glob.glob(pattern)
 
