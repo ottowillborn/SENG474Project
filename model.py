@@ -200,6 +200,18 @@ merged_names_and_picks = pd.merge(
 #some renaming
 merged_names_and_picks = merged_names_and_picks.rename(columns={"RowIndex": "Predicted Pick", "Pick": "Actual Pick"})
 
+# Set predicted pick to 61 if it's >= 60
+merged_names_and_picks["Predicted Pick"] = merged_names_and_picks["Predicted Pick"].apply(lambda x: 61 if x >= 60 else x)
+
+# Set actual pick to 61 if it's 0
+merged_names_and_picks["Actual Pick"] = merged_names_and_picks["Actual Pick"].apply(lambda x: 61 if x == 0 else x)
+
+# Remove rows where both predicted and actual picks are 61 as doesnt contribute to top 60 error 
+merged_names_and_picks = merged_names_and_picks[
+    (merged_names_and_picks["Predicted Pick"] != 61) | (merged_names_and_picks["Actual Pick"] != 61)
+]
+
+
 #pick error 
 merged_names_and_picks["Error (pick distance)"] = (merged_names_and_picks["Predicted Pick"] - merged_names_and_picks["Actual Pick"]).abs()
 
