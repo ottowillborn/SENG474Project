@@ -43,14 +43,10 @@ combined_df["Pick"] = combined_df["Pick"].replace(0, 61)
 test_data["Pick"] = test_data["Pick"].replace(0, 61)
 
 # desired features for training, these are the features we will use to train the model
-# desired_feats = ["HT", "WT","Age_x","GP","TS%",                   
-#             "eFG%","ORB%","DRB%","TRB%","AST%","TOV%",
-#             "STL%","BLK%","USG%","Total S %","PPR",
-#             "PPS","ORtg","DRtg","PER", "Team_encoded","Position_encoded"]
-
-desired_feats = ["Age_x","TS%",                   
-            "eFG%","ORB%","DRB%","TRB%",
-            "ORtg","DRtg"]
+desired_feats = ["HT", "WT","Age_x","GP","TS%",                   
+            "eFG%","ORB%","DRB%","TRB%","AST%","TOV%",
+            "STL%","BLK%","USG%","Total S %","PPR",
+            "PPS","ORtg","DRtg","PER", "Team_encoded","Position_encoded"]
 
 #Handling of team that is not in the combined df, but in the test df
 #Adding a dummy player with no stats, so label encoder has an "Unknown Team" value available
@@ -100,7 +96,6 @@ def convert_height(height):
 combined_df["HT"] = combined_df["HT"].apply(convert_height)
 test_data["HT"] = test_data["HT"].apply(convert_height)
 
-
 #create feature matrix and label vector
 x_vector = combined_df[desired_feats].copy()
 y_vector = combined_df["Pick"].copy()
@@ -121,7 +116,6 @@ for col in x_test.columns:
 # Fill missing values with column means
 x_vector = x_vector.fillna(0.1 * x_vector.mean()) 
 x_test = x_test.fillna(0.1 * x_vector.mean()) 
-
 
 #normal equation calculation
 def normal_equation(X, Y):
