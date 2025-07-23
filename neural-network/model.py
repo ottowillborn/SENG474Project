@@ -239,6 +239,22 @@ def plot_results(actual_picks: np.ndarray, predicted_picks: np.ndarray, player_n
     plt.show()
 
 
+def plot_learning_curves(train_sizes: List[int], train_losses: List[float], val_losses: List[float]):
+    """Plot the learning curves showing training and validation loss vs training size"""
+    plt.figure(figsize=(10, 6))
+    plt.plot(train_sizes, train_losses, 'o-',
+             color='blue', label='Training Loss')
+    plt.plot(train_sizes, val_losses, 'o-',
+             color='green', label='Validation Loss')
+    plt.title("Model Learning Curves")
+    plt.xlabel("Number of Training Examples")
+    plt.ylabel("Loss")
+    plt.grid(True, linestyle='--', alpha=0.7)
+    plt.legend(loc='best')
+    plt.tight_layout()
+    plt.show()
+
+
 def main():
     data_path = "../allUpdatedPlayerData/"
     test_file = "all_players_career_stats_2025.csv"
@@ -291,18 +307,7 @@ def main():
     )
 
     # Plot learning curves
-    plt.figure(figsize=(10, 6))
-    plt.plot(train_sizes, train_losses, 'o-',
-             color='blue', label='Training Loss')
-    plt.plot(train_sizes, val_losses, 'o-',
-             color='green', label='Validation Loss')
-    plt.title("Model Learning Curves")
-    plt.xlabel("Number of Training Examples")
-    plt.ylabel("Loss")
-    plt.grid(True, linestyle='--', alpha=0.7)
-    plt.legend(loc='best')
-    plt.tight_layout()
-    plt.show()
+    plot_learning_curves(train_sizes, train_losses, val_losses)
 
     # Make predictions
     predictions = evaluate_model(model, test_loader)
