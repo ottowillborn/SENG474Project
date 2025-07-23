@@ -13,9 +13,6 @@ from torch.utils.data import Dataset, DataLoader
 from typing import List, Tuple
 import logging
 
-# Setup logging
-logging.basicConfig(level=logging.INFO)
-
 
 class NBADraftNet(nn.Module):
     """Neural Network for NBA Draft Prediction"""
@@ -118,7 +115,7 @@ def load_and_preprocess_data(data_path: str, test_file: str) -> Tuple[pd.DataFra
     # Load test data
     test_path = os.path.join(data_path, test_file)
     test_df = pd.read_csv(test_path)
-    test_df["Pick"] = combined_df["Pick"].replace(0, 61)
+    test_df["Pick"] = test_df["Pick"].replace(0, 61)
 
     return combined_df, test_df
 
@@ -256,10 +253,7 @@ def plot_learning_curves(train_sizes: List[int], train_losses: List[float], val_
     plt.show()
 
 
-def main():
-    data_path = "../allUpdatedPlayerData/"
-    test_file = "all_players_career_stats_2025.csv"
-
+def train_and_test_model(data_path: str, test_file: str, show_plots: bool = True):
     # Load and preprocess data
     train_df, test_df = load_and_preprocess_data(data_path, test_file)
 
@@ -308,7 +302,8 @@ def main():
     )
 
     # Plot learning curves
-    plot_learning_curves(train_sizes, train_losses, val_losses)
+    if (show_plots):
+        plot_learning_curves(train_sizes, train_losses, val_losses)
 
     # Make predictions
     predictions = evaluate_model(model, test_loader)
@@ -319,11 +314,27 @@ def main():
     player_names = test_df["Player"].values
 
     # Plot results
-    plot_results(actual_picks, predicted_picks, player_names)
+    if (show_plots):
+        plot_results(actual_picks, predicted_picks, player_names)
 
     # Calculate and display error metrics
     pick_error = np.abs(predicted_picks - actual_picks)
     print(f"Mean absolute pick error: {np.mean(pick_error):.2f}")
+
+
+def main():
+    data_path = "../allUpdatedPlayerData/"
+
+    # Test file for 2025 draft predictions
+    test_file = f"all_players_career_stats_2024.csv"
+    train_and_test_model(data_path, test_file)
+
+    # LOOCV
+    # years = ["2006", "2007", "2008", "2009", "2010", "2011", "2012", "2013", "2014", "2015",
+    #          "2016", "2017", "2018", "2019", "2020", "2021", "2022", "2023", "2024", "2025"]
+    # for year in years:
+    #     test_file = f"all_players_career_stats_{year}.csv"
+    #     train_and_test_model(data_path, test_file, show_plots=False)
 
 
 if __name__ == "__main__":
