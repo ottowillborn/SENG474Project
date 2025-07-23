@@ -1,48 +1,37 @@
 import numpy as np
 import matplotlib.pyplot as plt
-from sklearn.model_selection import learning_curve
+from typing import List, Union
 
 
-def plot_learning_curve(estimator, X, y, cv=5, train_sizes=np.linspace(0.1, 1.0, 10)):
+def plot_learning_curve(
+    train_sizes: Union[List[int], np.ndarray],
+    train_errors: Union[List[float], np.ndarray],
+    val_errors: Union[List[float], np.ndarray],
+    test_errors: Union[List[float], np.ndarray] = None
+) -> plt.Figure:
     """
-    Generate and plot a learning curve for a given estimator.
+    Plot a learning curve from pre-computed errors.
 
     Parameters:
     -----------
-    estimator : estimator object
-        A scikit-learn estimator object implementing 'fit' and 'predict' methods
-    X : array-like of shape (n_samples, n_features)
-        Training data
-    y : array-like of shape (n_samples,)
-        Target values
-    cv : int, cross-validation generator or iterable
-        Determines the cross-validation splitting strategy (default=5)
     train_sizes : array-like
-        Relative or absolute numbers of training examples to use to generate the learning curve
-        (default=np.linspace(0.1, 1.0, 10))
+        List or array of training set sizes
+    train_errors : array-like
+        List or array of training errors corresponding to each training size
+    val_errors : array-like
+        List or array of validation errors corresponding to each training size
+    test_errors : array-like, optional
+        List or array of test errors corresponding to each training size
 
     Returns:
     --------
     plt.Figure
         The matplotlib figure containing the learning curve plot
     """
-    # Calculate learning curve values
-    train_sizes, train_scores, validation_scores = learning_curve(
-        estimator=estimator,
-        X=X,
-        y=y,
-        train_sizes=train_sizes,
-        cv=cv,
-        n_jobs=-1,  # Use all available cores
-        scoring='neg_mean_squared_error'  # Can be changed based on your metric
-    )
-
-    # Calculate mean and standard deviation for training and validation scores
-    # Negative because of neg_mean_squared_error
-    train_scores_mean = -np.mean(train_scores, axis=1)
-    train_scores_std = np.std(train_scores, axis=1)
-    validation_scores_mean = -np.mean(validation_scores, axis=1)
-    validation_scores_std = np.std(validation_scores, axis=1)
+    # Convert inputs to numpy arrays
+    train_sizes = np.array(train_sizes)
+    train_errors = np.array(train_errors)
+    val_errors = np.array(val_errors)
 
     # Create the plot
     plt.figure(figsize=(10, 6))
@@ -50,22 +39,25 @@ def plot_learning_curve(estimator, X, y, cv=5, train_sizes=np.linspace(0.1, 1.0,
     plt.xlabel('Training Examples')
     plt.ylabel('Error')
 
-    # Plot training and validation scores
-    plt.plot(train_sizes, train_scores_mean,
-             label='Training Error', color='blue', marker='o')
-    plt.fill_between(train_sizes,
-                     train_scores_mean - train_scores_std,
-                     train_scores_mean + train_scores_std,
-                     alpha=0.1,
-                     color='blue')
+    # Create the plot
+    plt.figure(figsize=(10, 6))
+    plt.title('Learning Curve')
+    plt.xlabel('Training Examples')
+    plt.ylabel('Error')
 
-    plt.plot(train_sizes, validation_scores_mean,
-             label='Cross-validation Error', color='green', marker='o')
-    plt.fill_between(train_sizes,
-                     validation_scores_mean - validation_scores_std,
-                     validation_scores_mean + validation_scores_std,
-                     alpha=0.1,
-                     color='green')
+    # Plot training errors
+    plt.plot(train_sizes, train_errors,
+             label='Training Error', color='blue', marker='o')
+
+    # Plot validation errors
+    plt.plot(train_sizes, val_errors,
+             label='Validation Error', color='green', marker='o')
+
+    # Plot test errors if provided
+    if test_errors is not None:
+        test_errors = np.array(test_errors)
+        plt.plot(train_sizes, test_errors,
+                 label='Test Error', color='red', marker='o')
 
     plt.grid(True)
     plt.legend(loc='best')
@@ -75,17 +67,14 @@ def plot_learning_curve(estimator, X, y, cv=5, train_sizes=np.linspace(0.1, 1.0,
 
 # Example usage:
 """
-from sklearn.linear_model import LinearRegression
 import numpy as np
 
-# Generate sample data
-X = np.random.rand(1000, 10)
-y = np.random.rand(1000)
+# Example with pre-computed errors
+train_sizes = [100, 200, 300, 400, 500]
+train_errors = [0.5, 0.3, 0.2, 0.15, 0.1]
+val_errors = [0.6, 0.4, 0.35, 0.33, 0.32]
+test_errors = [0.55, 0.42, 0.38, 0.35, 0.34]
 
-# Create and fit the model
-model = LinearRegression()
-
-# Generate and display the learning curve
-fig = plot_learning_curve(model, X, y)
+fig = plot_learning_curve(train_sizes, train_errors, val_errors, test_errors)
 plt.show()
 """
