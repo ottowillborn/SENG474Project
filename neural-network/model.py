@@ -118,6 +118,7 @@ def load_and_preprocess_data(data_path: str, test_file: str) -> Tuple[pd.DataFra
     # Load test data
     test_path = os.path.join(data_path, test_file)
     test_df = pd.read_csv(test_path)
+    test_df["Pick"] = combined_df["Pick"].replace(0, 61)
 
     return combined_df, test_df
 
