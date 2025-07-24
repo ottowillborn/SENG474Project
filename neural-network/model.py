@@ -21,51 +21,50 @@ class NBADraftNet(nn.Module):
     def __init__(self, input_size: int, hidden_sizes: List[int]):
         super(NBADraftNet, self).__init__()
 
-        # First layer processes raw player data
-        self.input_layer = nn.Linear(input_size, hidden_sizes[0])
+        num_branches = 4
 
-        # Create the hierarchical structure as shown in the diagram
+        layer1_size = hidden_sizes[0]
+        layer2_size = int(hidden_sizes[1] / num_branches)
+        layer3_size = hidden_sizes[2]
+
+        # First layer processes raw player data (Layer 1)
+        self.input_layer = nn.Linear(input_size, layer1_size)
+
+        # Four parallel branches (Layer 2)
         # Stats/efficiency metrics layer
         self.stats_layer = nn.Sequential(
-            nn.Linear(hidden_sizes[0], hidden_sizes[1]),
+            nn.Linear(layer1_size, layer2_size),
             nn.ReLU(),
             nn.Dropout(0.2)
         )
 
         # Physical measurements layer
         self.physical_layer = nn.Sequential(
-            nn.Linear(hidden_sizes[0], hidden_sizes[1]),
+            nn.Linear(layer1_size, layer2_size),
             nn.ReLU(),
             nn.Dropout(0.2)
         )
 
         # Age and experience layer
         self.age_exp_layer = nn.Sequential(
-            nn.Linear(hidden_sizes[0], hidden_sizes[1]),
+            nn.Linear(layer1_size, layer2_size),
             nn.ReLU(),
             nn.Dropout(0.2)
         )
 
-        # Character/work ethic layer (will learn from overall patterns)
+        # Character/work ethic layer
         self.character_layer = nn.Sequential(
-            nn.Linear(hidden_sizes[0], hidden_sizes[1]),
+            nn.Linear(layer1_size, layer2_size),
             nn.ReLU(),
             nn.Dropout(0.2)
         )
 
-        # Layer for physical meaurements vs position
-        self.character_layer = nn.Sequential(
-            nn.Linear(hidden_sizes[0], hidden_sizes[1]),
-            nn.ReLU(),
-            nn.Dropout(0.2)
-        )
-
-        # Final combination layer
+        # Final combination layer (Layer 3)
         self.final_layer = nn.Sequential(
-            nn.Linear(hidden_sizes[1] * 4, hidden_sizes[2]),
+            nn.Linear(layer2_size * 4, layer3_size),
             nn.ReLU(),
             nn.Dropout(0.3),
-            nn.Linear(hidden_sizes[2], 1)
+            nn.Linear(layer3_size, 1)  # Output layer
         )
 
     def forward(self, x):
@@ -446,7 +445,7 @@ def main():
         print(f"Standard deviation of error: {np.std(errors):.2f}")
 
     else:
-        train_and_test_model(data_path, "2025")
+        train_and_test_model(data_path, "2025", show_plots=True)
 
 
 if __name__ == "__main__":
