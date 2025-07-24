@@ -3,10 +3,12 @@ import pandas as pd
 import glob
 import sys 
 import os
-import matplotlib.pyplot as plt
 import xgboost as xgb
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import LabelEncoder
+
+from plotData import plot_data
+from formatData import create_formated_player_data
 #2002 is the earliest year with NCAA stats available
 #2006 is when high school players were no longer eligible for the draft
 # Player: Full name of the basketball player.
@@ -49,34 +51,12 @@ path = "playerData/"
 team_le = LabelEncoder()
 pos_le = LabelEncoder()
 
-def plot_data(merged_names_and_picks):
-    # Scatter plot
-    print("Mean AVG pick error (for now this is a very unfavorably skewed metric):",merged_names_and_picks["Error (pick distance)"].mean())
-    plt.figure(figsize=(10, 8))
-    plt.scatter(merged_names_and_picks["Actual Pick"], merged_names_and_picks["Predicted Pick"], alpha=0.8)
-
-    plt.plot([1, 60], [1, 60], linestyle='--', color='gray', label="Perfect Prediction")
-
-    for _, row in merged_names_and_picks.iterrows():
-        plt.text(
-            row["Actual Pick"] + 0.5,  
-            row["Predicted Pick"] + 0.5,  
-            row["Player"],
-            fontsize=8
-        )
-
-    plt.xlabel("Actual Pick")
-    plt.ylabel("Predicted Pick")
-    plt.title("Predicted vs. Actual NBA Draft Picks")
-    plt.legend()
-    plt.grid(True)
-    plt.tight_layout()
-    plt.show()
-
-def create_formated_player_data(filenmae):
+def create_formated_player_data1(filename):
     #func: create_formated_player_data
     #args:
     #Docs:
+    team_le = LabelEncoder()
+    pos_le = LabelEncoder()
     pattern = os.path.join(path, "college_players_career_stats_*.csv")
     all_files = glob.glob(pattern)
 
@@ -99,7 +79,7 @@ def create_formated_player_data(filenmae):
     combined_df["Team_encoded"] = team_le.fit_transform(combined_df["Pre-Draft Team"]) #encodes pre draft teams into numbers
     combined_df["Position_encoded"] = pos_le.fit_transform(combined_df["Pos"]) #encodes positions into numbers
 
-    combined_df.to_csv(filenmae, index=False) 
+    combined_df.to_csv(filename, index=False) 
     return combined_df
 
 
@@ -111,7 +91,7 @@ if len(sys.argv) != 2:
 test_file_name = sys.argv[1]
 
 
-combined_df = create_formated_player_data("combined_player_data_with_labels.csv")
+combined_df = create_formated_player_data("combined_player_data_with_labels.csv",test_file_name)
 
 
 desired_feats = ["WT","Age_x","GP","TS%",                   #add height, omit noationality for later, POS ENCODED

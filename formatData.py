@@ -33,3 +33,5 @@ def create_formated_player_data(filename,test_file_name):
 
     combined_df.to_csv(filename, index=False) 
     return combined_df
+def format_training_data():
+    pass

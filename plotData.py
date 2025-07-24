@@ -1,4 +1,5 @@
 import matplotlib.pyplot as plt
+import glob
 def plot_data(merged_names_and_picks):
     # Scatter plot
     print("Mean AVG pick error (for now this is a very unfavorably skewed metric):",merged_names_and_picks["Error (pick distance)"].mean())

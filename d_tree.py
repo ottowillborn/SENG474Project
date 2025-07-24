@@ -3,6 +3,7 @@ import pandas as pd
 import glob
 import sys 
 import os
+from plotData import plot_data
 import matplotlib.pyplot as plt
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import LabelEncoder
@@ -14,21 +15,36 @@ path = "playerData/"
 team_le = LabelEncoder()
 pos_le = LabelEncoder()
 
-def plot_data(merged_names_and_picks):
+def plot_data1(merged_names_and_picks):
     # Scatter plot
     print("Mean AVG pick error (for now this is a very unfavorably skewed metric):",merged_names_and_picks["Error (pick distance)"].mean())
     plt.figure(figsize=(10, 8))
-    plt.scatter(merged_names_and_picks["Actual Pick"], merged_names_and_picks["Predicted Pick"], alpha=0.8)
+    player_data_copy = []
+    index = 0
+    for _, row in merged_names_and_picks.iterrows():
+        if(index > 50):
+            break
+        player_data_copy.append(row)
+        index = index + 1
+    print("------------------")
+    print(player_data_copy)
+    player_data_copy = pd.DataFrame(player_data_copy)
+
+    plt.scatter(player_data_copy["Actual Pick"], player_data_copy["Predicted Pick"], alpha=0.8)
 
     plt.plot([1, 60], [1, 60], linestyle='--', color='gray', label="Perfect Prediction")
-
+    index = 0
     for _, row in merged_names_and_picks.iterrows():
+        #print(i)
+        if(index > 50):
+            break
         plt.text(
             row["Actual Pick"] + 0.5,  
             row["Predicted Pick"] + 0.5,  
             row["Player"],
             fontsize=8
         )
+        index = index + 1
 
     plt.xlabel("Actual Pick")
     plt.ylabel("Predicted Pick")
@@ -170,7 +186,9 @@ merged_names_and_picks = merged_names_and_picks.rename(columns={"RowIndex": "Pre
 merged_names_and_picks["Error (pick distance)"] = (merged_names_and_picks["Predicted Pick"] - merged_names_and_picks["Actual Pick"]).abs()
 
 print(merged_names_and_picks)
+print(merged_names_and_picks["Player"])
 plot_data(merged_names_and_picks)
+
  
 
 
