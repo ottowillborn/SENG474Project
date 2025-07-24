@@ -253,7 +253,9 @@ def plot_learning_curves(train_sizes: List[int], train_losses: List[float], val_
     plt.show()
 
 
-def train_and_test_model(data_path: str, test_file: str, show_plots: bool = True):
+def train_and_test_model(data_path: str, year: str, show_plots: bool = True):
+    test_file = f"all_players_career_stats_{year}.csv"
+
     # Load and preprocess data
     train_df, test_df = load_and_preprocess_data(data_path, test_file)
 
@@ -319,26 +321,30 @@ def train_and_test_model(data_path: str, test_file: str, show_plots: bool = True
 
     # Calculate and display error metrics
     pick_error = np.abs(predicted_picks - actual_picks)
-    print(f"Mean absolute pick error: {np.mean(pick_error):.2f}")
+    print(
+        f"Mean absolute pick error for test year {year}: {np.mean(pick_error):.2f}")
 
 
 def main():
+    # Enable logging
+    # logging.basicConfig(level=logging.INFO)
+
+    # Check if CUDA is available and print GPU info
+    print("CUDA available:", torch.cuda.is_available())
+    print("GPU name:", torch.cuda.get_device_name(0)
+          if torch.cuda.is_available() else "No GPU")
+
     data_path = "../allUpdatedPlayerData/"
 
     # Test file for 2025 draft predictions
-    test_file = f"all_players_career_stats_2024.csv"
-    train_and_test_model(data_path, test_file)
+    # train_and_test_model(data_path, "2025")
 
     # LOOCV
-    # years = ["2006", "2007", "2008", "2009", "2010", "2011", "2012", "2013", "2014", "2015",
-    #          "2016", "2017", "2018", "2019", "2020", "2021", "2022", "2023", "2024", "2025"]
-    # for year in years:
-    #     test_file = f"all_players_career_stats_{year}.csv"
-    #     train_and_test_model(data_path, test_file, show_plots=False)
+    years = ["2006", "2007", "2008", "2009", "2010", "2011", "2012", "2013", "2014", "2015",
+             "2016", "2017", "2018", "2019", "2020", "2021", "2022", "2023", "2024", "2025"]
+    for year in years:
+        train_and_test_model(data_path, year, show_plots=False)
 
 
 if __name__ == "__main__":
     main()
-
-# Setup logging
-logging.basicConfig(level=logging.INFO)
