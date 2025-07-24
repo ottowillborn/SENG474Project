@@ -177,7 +177,7 @@ def train_model(model: nn.Module,
     val_losses = []
     train_sizes = []
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-    model.to(device)
+    model.to(device)  # Ensure model is on GPU
 
     # Calculate total dataset size
     total_size = len(train_loader.dataset)
@@ -187,17 +187,16 @@ def train_model(model: nn.Module,
     for size in subset_sizes:
         # Create subset of training data
         subset_indices = torch.randperm(total_size)[:size]
-        subset_train_data = torch.utils.data.Subset(
-            train_loader.dataset, subset_indices)
+        subset_train_data = torch.utils.data.Subset(train_loader.dataset, subset_indices)
         subset_train_loader = DataLoader(
-            subset_train_data, batch_size=128, shuffle=True, pin_memory=False)
+            subset_train_data, batch_size=128, shuffle=True, pin_memory=True  # Enable pin_memory
+        )
 
-        # Train for a few epochs with this subset
         model.train()
         train_loss = 0.0
         for _ in range(num_epochs // 5):  # Reduced number of epochs per subset
             for batch_X, batch_y in subset_train_loader:
-                # Remove .to(device) since data is already on GPU
+                batch_X, batch_y = batch_X.to(device, non_blocking=True), batch_y.to(device, non_blocking=True)  # Move data to GPU
                 optimizer.zero_grad()
                 outputs = model(batch_X)
                 loss = criterion(outputs, batch_y.view(-1, 1))
@@ -210,7 +209,7 @@ def train_model(model: nn.Module,
         val_loss = 0.0
         with torch.no_grad():
             for batch_X, batch_y in val_loader:
-                # Remove .to(device) since data is already on GPU
+                batch_X, batch_y = batch_X.to(device, non_blocking=True), batch_y.to(device, non_blocking=True)  # Move data to GPU
                 outputs = model(batch_X)
                 val_loss += criterion(outputs, batch_y.view(-1, 1)).item()
 
@@ -227,13 +226,14 @@ def train_model(model: nn.Module,
 def evaluate_model(model: nn.Module, test_loader: DataLoader) -> np.ndarray:
     """Evaluate the model and return predictions"""
     model.eval()
+    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     predictions = []
 
     with torch.no_grad():
         for batch_X, _ in test_loader:
-            # Remove .to(device) since data is already on GPU
+            batch_X = batch_X.to(device, non_blocking=True)  # Move data to GPU
             outputs = model(batch_X)
-            predictions.extend(outputs.cpu().numpy())
+            predictions.extend(outputs.cpu().numpy())  # Move predictions back to CPU
 
     return np.array(predictions)
 
@@ -301,28 +301,29 @@ def train_and_test_model(data_path: str, year: str, show_plots: bool = True) -> 
     # Move data to GPU immediately after creation
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     train_dataset = NBADraftDataset(
-        torch.FloatTensor(X_train_scaled).to(device),
-        torch.FloatTensor(y_train).to(device)
+        torch.FloatTensor(X_train_scaled),
+        torch.FloatTensor(y_train)
     )
     val_dataset = NBADraftDataset(
-        torch.FloatTensor(X_val_scaled).to(device),
-        torch.FloatTensor(y_val).to(device)
+        torch.FloatTensor(X_val_scaled),
+        torch.FloatTensor(y_val)
     )
     test_dataset = NBADraftDataset(
-        torch.FloatTensor(X_test_scaled).to(device),
-        torch.FloatTensor(np.zeros(len(X_test_scaled))).to(device)
+        torch.FloatTensor(X_test_scaled),
+        torch.FloatTensor(np.zeros(len(X_test_scaled)))
     )
 
     # Increase batch size for better GPU utilization
     train_loader = DataLoader(
-        train_dataset, batch_size=128, shuffle=True, pin_memory=False)
-    val_loader = DataLoader(val_dataset, batch_size=128, pin_memory=False)
-    test_loader = DataLoader(test_dataset, batch_size=128, pin_memory=False)
+        train_dataset, batch_size=128, shuffle=True, pin_memory=True  # Enable pin_memory
+    )
+    val_loader = DataLoader(val_dataset, batch_size=128, pin_memory=True)
+    test_loader = DataLoader(test_dataset, batch_size=128, pin_memory=True)
 
     # Initialize and train model
     input_size = X_train.shape[1]
     hidden_sizes = [128, 64, 32]
-    model = NBADraftNet(input_size, hidden_sizes).to(device)
+    model = NBADraftNet(input_size, hidden_sizes).to(device)  # Ensure model is on GPU
 
     train_losses, val_losses, train_sizes = train_model(
         model,
