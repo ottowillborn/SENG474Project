@@ -3,10 +3,12 @@ import pandas as pd
 import glob
 import sys 
 import os
-import matplotlib.pyplot as plt
 import xgboost as xgb
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import LabelEncoder
+
+from plotData import plot_data
+from formatData import create_formated_player_data
 #2002 is the earliest year with NCAA stats available
 #2006 is when high school players were no longer eligible for the draft
 # Player: Full name of the basketball player.
@@ -43,48 +45,57 @@ from sklearn.preprocessing import LabelEncoder
 
 #The following is an XGboost model set to pairwise ranking only american college players. Run with model.py <test file name in Player Data>. Rudimentary testing but it will just exclude your test file from training. 
 
-#argument error handling
+
+#Global Variables:
+path = "playerData/"
+team_le = LabelEncoder()
+pos_le = LabelEncoder()
+
+def create_formated_player_data1(filename):
+    #func: create_formated_player_data
+    #args:
+    #Docs:
+    team_le = LabelEncoder()
+    pos_le = LabelEncoder()
+    pattern = os.path.join(path, "college_players_career_stats_*.csv")
+    all_files = glob.glob(pattern)
+
+    files = [f for f in all_files if not f.endswith(test_file_name)] #excluding the test file
+
+    dfs = []
+    for file in files:
+        year = int(file.split("_")[-1].split(".")[0])  
+        df = pd.read_csv(file)
+        df["Year"] = year  
+        dfs.append(df)
+
+    #MEGA FRAME
+    combined_df = pd.concat(dfs, ignore_index=True)
+    combined_df = combined_df.drop(columns=["Draft Trades", "Age_y", "Class", "Season", "School"])
+    # 999 labels as not picked
+    combined_df["Pick"] = combined_df["Pick"].replace(0,999)
+    combined_df["label"] = -combined_df["Pick"] #make a new column label which is just negative pick 
+
+    combined_df["Team_encoded"] = team_le.fit_transform(combined_df["Pre-Draft Team"]) #encodes pre draft teams into numbers
+    combined_df["Position_encoded"] = pos_le.fit_transform(combined_df["Pos"]) #encodes positions into numbers
+
+    combined_df.to_csv(filename, index=False) 
+    return combined_df
+
+
 if len(sys.argv) != 2:
     print("Usage: python script.py <test_csv_filename>")
     sys.exit(1)
 
 #create path to draft class folder, match all individual file paths using glob
 test_file_name = sys.argv[1]
-path = "allUpdatedPlayerData/"
-pattern = os.path.join(path, "all_players_career_stats_*.csv")
-all_files = glob.glob(pattern)
 
-# create list dfs with dataframed draft class csvs, but exclude the test file
-files = [f for f in all_files if not f.endswith(test_file_name)] 
-dfs = []
-for file in files:
-    year = int(file.split("_")[-1].split(".")[0])  
-    df = pd.read_csv(file)
-    df["Year"] = year  
-    dfs.append(df)
 
-#concatenate all dataframes
-combined_df = pd.concat(dfs, ignore_index=True)
+combined_df = create_formated_player_data("combined_player_data_with_labels.csv",test_file_name)
 
-#combined_df = combined_df.drop(columns=["Draft Trades", "Age_y", "Class", "Season", "School"])
 
-# label pick 0s in test data as 999
-combined_df["Pick"] = combined_df["Pick"].replace(0,999)
+desired_feats = ["WT","Age_x","GP","TS%",                   #add height, omit noationality for later, POS ENCODED
 
-#create label which is just the negative of the pick, necessary for xgboost
-combined_df["label"] = -combined_df["Pick"] #make a new column label which is just negative pick 
-
-#encode college team and position of player (mmust be done for any non numerical feature in params)
-team_le = LabelEncoder()
-pos_le = LabelEncoder()
-combined_df["Team_encoded"] = team_le.fit_transform(combined_df["Pre-Draft Team"]) 
-combined_df["Position_encoded"] = pos_le.fit_transform(combined_df["Pos"])
-
-#checkpoint. this csv is all players from all training drafts, labeled with their actual draft pick, and their non-numerical features encoded
-combined_df.to_csv("combined_player_data_with_labels.csv", index=False) 
-
-#desired features for training, these are the features we will use to train the model
-desired_feats = ["WT","Age_x","GP","TS%",                   
             "eFG%","ORB%","DRB%","TRB%","AST%","TOV%",
             "STL%","BLK%","USG%","Total S %","PPR",
             "PPS","ORtg","DRtg","PER", "Team_encoded","Position_encoded"]
@@ -217,53 +228,11 @@ merged_names_and_picks["Error (pick distance)"] = (merged_names_and_picks["Predi
 
 #output
 print(merged_names_and_picks)
-print("Mean AVG pick error (for now this is a very unfavorably skewed metric):",merged_names_and_picks["Error (pick distance)"].mean()) 
 
-# Scatter plot
+plot_data(merged_names_and_picks)
+ 
 
-plt.figure(figsize=(10, 8))
-plt.scatter(
-    merged_names_and_picks["Actual Pick"],
-    merged_names_and_picks["Predicted Pick"],
-    alpha=0.8
-)
 
-# Diagonal line (perfect prediction)
-plt.plot([1, 60], [1, 60], linestyle='--', color='gray', label="Perfect Prediction")
+#NOTES : WANT TO CHANGE PREDICTED PICK TO BE 0 IF EXCEEDS DRAFT SIZE 
+#MAKE IT EASIER TO CHOOSE WHAT YEAR TO USE AS TEST SET
 
-# Annotate each player
-for _, row in merged_names_and_picks.iterrows():
-    plt.text(
-        row["Actual Pick"] + 0.5,
-        row["Predicted Pick"] + 0.5,
-        row["Player"],
-        fontsize=8
-    )
-
-# Add quadrant labels with background boxes for readability
-plt.text(
-    10, 55, "predicted high, actual low", fontsize=8, color='red', weight='bold',
-    alpha=0.7, bbox=dict(facecolor='white', edgecolor='none', alpha=0.3)
-)
-plt.text(
-    45, 55, "predicted low, actual low", fontsize=8, color='green', weight='bold',
-    alpha=0.7, bbox=dict(facecolor='white', edgecolor='none', alpha=0.3)
-)
-plt.text(
-    10, 5, "predicted high, actual high", fontsize=8, color='green', weight='bold',
-    alpha=0.7, bbox=dict(facecolor='white', edgecolor='none', alpha=0.3)
-)
-plt.text(
-    45, 5, "predicted low, actual high", fontsize=8, color='red', weight='bold',
-    alpha=0.7, bbox=dict(facecolor='white', edgecolor='none', alpha=0.3)
-)
-
-# Axis labels and title
-plt.xlabel("Actual Pick")
-plt.ylabel("Predicted Pick")
-plt.title("Predicted vs. Actual NBA Draft Picks")
-plt.legend()
-plt.grid(True)
-plt.tight_layout()
-plt.show()
-#paosdgfasd
