@@ -355,15 +355,17 @@ def main():
           if torch.cuda.is_available() else "No GPU")
 
     data_path = "../allUpdatedPlayerData/"
+    LOO = sys.argv[1] == "-loocv" if len(sys.argv) > 1 else False
 
-    # Test file for 2025 draft predictions
-    train_and_test_model(data_path, "2025")
-
-    # LOOCV
-    # years = ["2006", "2007", "2008", "2009", "2010", "2011", "2012", "2013", "2014", "2015",
-    #          "2016", "2017", "2018", "2019", "2020", "2021", "2022", "2023", "2024", "2025"]
-    # for year in years:
-    #     train_and_test_model(data_path, year, show_plots=False)
+    if LOO:
+        # Test file for 2025 draft predictions
+        years = ["2006", "2007", "2008", "2009", "2010", "2011", "2012", "2013", "2014", "2015",
+                 "2016", "2017", "2018", "2019", "2020", "2021", "2022", "2023", "2024"]
+        for year in years:
+            train_and_test_model(data_path, year, show_plots=False)
+    else:
+        # Test file for 2025 draft predictions
+        train_and_test_model(data_path, "2025")
 
 
 if __name__ == "__main__":
