@@ -415,7 +415,13 @@ def train_and_test_model(data_path: str, year: str, show_plots: bool = True) -> 
     pick_error = np.abs(predicted_picks - actual_picks)
     mean_error = np.mean(pick_error)
     print(f"Mean absolute pick error for test year {year}: {mean_error:.2f}\n")
-    return mean_error
+    results_df = pd.DataFrame({
+        "Player": player_names,
+        "Actual Pick": actual_picks,
+        "Predicted Pick": predicted_picks,
+        "Pick Error": pick_error
+    })
+    return mean_error, results_df
 
 
 def main():
@@ -435,7 +441,7 @@ def main():
                  "2016", "2017", "2018", "2019", "2020", "2021", "2022", "2023", "2024", "2025"]
         errors = []
         for year in years:
-            error = train_and_test_model(data_path, year, show_plots=False)
+            error, _ = train_and_test_model(data_path, year, show_plots=False)
             errors.append(error)
 
         # Final report
