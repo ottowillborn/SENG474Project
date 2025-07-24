@@ -138,8 +138,7 @@ def load_and_preprocess_data(data_path: str, test_file: str) -> Tuple[pd.DataFra
 def prepare_features(df: pd.DataFrame, is_training: bool = True) -> Tuple[np.ndarray, np.ndarray]:
     """Prepare features and labels for the model"""
     desired_feats = ["HT", "WT", "Age_x", "GP", "TS%", "eFG%", "ORB%", "DRB%", "TRB%",
-                     "AST%", "TOV%", "STL%", "BLK%", "USG%", "Total S %", "PPR",
-                     "PPS", "ORtg", "DRtg", "PER"]
+                     "AST%", "TOV%", "STL%", "BLK%", "USG%",  "ORtg", "DRtg", "PER"]
 
     # Create feature matrix
     X = df[desired_feats].copy()
