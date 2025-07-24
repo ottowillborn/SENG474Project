@@ -273,7 +273,7 @@ def plot_learning_curves(train_sizes: List[int], train_losses: List[float], val_
     plt.show()
 
 
-def train_and_test_model(data_path: str, year: str, show_plots: bool = True):
+def train_and_test_model(data_path: str, year: str, show_plots: bool = True) -> float:
     test_file = f"all_players_career_stats_{year}.csv"
 
     # Load and preprocess data
@@ -341,8 +341,9 @@ def train_and_test_model(data_path: str, year: str, show_plots: bool = True):
 
     # Calculate and display error metrics
     pick_error = np.abs(predicted_picks - actual_picks)
-    print(
-        f"Mean absolute pick error for test year {year}: {np.mean(pick_error):.2f}")
+    mean_error = np.mean(pick_error)
+    print(f"Mean absolute pick error for test year {year}: {mean_error:.2f}\n")
+    return mean_error
 
 
 def main():
@@ -358,13 +359,21 @@ def main():
     LOO = sys.argv[1] == "-loocv" if len(sys.argv) > 1 else False
 
     if LOO:
-        # Test file for 2025 draft predictions
         years = ["2006", "2007", "2008", "2009", "2010", "2011", "2012", "2013", "2014", "2015",
                  "2016", "2017", "2018", "2019", "2020", "2021", "2022", "2023", "2024"]
+        errors = []
         for year in years:
-            train_and_test_model(data_path, year, show_plots=False)
+            error = train_and_test_model(data_path, year, show_plots=False)
+            errors.append(error)
+
+        # Final report
+        print("\n-" * 40)
+        for year in years:
+            print(f"Year {year} error: {errors[years.index(year)]:.2f}")
+        print(f"Average error across all years: {np.mean(errors):.2f}")
+        print(f"Standard deviation of error: {np.std(errors):.2f}")
+
     else:
-        # Test file for 2025 draft predictions
         train_and_test_model(data_path, "2025")
 
 
