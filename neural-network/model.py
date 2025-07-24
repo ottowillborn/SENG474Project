@@ -53,6 +53,13 @@ class NBADraftNet(nn.Module):
             nn.Dropout(0.2)
         )
 
+        # Layer for physical meaurements vs position
+        self.character_layer = nn.Sequential(
+            nn.Linear(hidden_sizes[0], hidden_sizes[1]),
+            nn.ReLU(),
+            nn.Dropout(0.2)
+        )
+
         # Final combination layer
         self.final_layer = nn.Sequential(
             nn.Linear(hidden_sizes[1] * 4, hidden_sizes[2]),
@@ -135,30 +142,81 @@ def load_and_preprocess_data(data_path: str, test_file: str) -> Tuple[pd.DataFra
     return combined_df, test_df
 
 
+def encode_position(pos_str: str) -> List[float]:
+    """Convert position string to one-hot encoding with role context
+    Categories: Guard (G,PG), Forward (F,SF,PF), Center (C), Hybrid (FC)"""
+    encoding = [0.0] * 4  # [Guard, Forward, Center, Hybrid]
+
+    if pd.isna(pos_str):
+        return encoding
+
+    pos = str(pos_str).upper()
+    if 'G' in pos or pos == 'PG':
+        encoding[0] = 1.0
+    elif 'F' in pos and 'C' not in pos:
+        encoding[1] = 1.0
+    elif pos == 'C':
+        encoding[2] = 1.0
+    elif 'FC' in pos or 'CF' in pos:
+        encoding[3] = 1.0
+
+    return encoding
+
+
+def calculate_derived_features(df: pd.DataFrame) -> pd.DataFrame:
+    """Calculate additional derived features"""
+    df = df.copy()
+
+    # Convert percentage strings to floats
+    for col in ['AST%', 'TOV%']:
+        df[col] = pd.to_numeric(df[col].replace('-', np.nan), errors='coerce')
+
+    # Calculate AST/TOV ratio (handle division by zero)
+    df['AST/TOV'] = df.apply(lambda row:
+                             row['AST%'] / row['TOV%'] if pd.notnull(row['TOV%']) and row['TOV%'] != 0
+                             else row['AST%'] if pd.notnull(row['AST%'])
+                             else np.nan, axis=1)
+
+    # Calculate BMI (weight in kg / height in meters squared)
+    df['BMI'] = df.apply(lambda row:
+                         (row['WT'] * 0.453592) / ((row['HT'] / 100) ** 2)
+                         if not pd.isna(row['HT']) and not pd.isna(row['WT']) else np.nan, axis=1)
+
+    return df
+
+
 def prepare_features(df: pd.DataFrame, is_training: bool = True) -> Tuple[np.ndarray, np.ndarray]:
     """Prepare features and labels for the model"""
+    # Base features
     desired_feats = ["HT", "WT", "Age_x", "GP", "TS%", "eFG%", "ORB%", "DRB%", "TRB%",
-                     "AST%", "TOV%", "STL%", "BLK%", "USG%",  "ORtg", "DRtg", "PER"]
+                     "AST%", "TOV%", "STL%", "BLK%", "USG%", "ORtg", "DRtg", "PER"]
+
+    # Add derived features
+    df = calculate_derived_features(df)
+    desired_feats.extend(['AST/TOV', 'BMI'])
 
     # Create feature matrix
     X = df[desired_feats].copy()
-    X = X.replace(['-', np.inf, -np.inf], np.nan)  # Handle more invalid values
+    X = X.replace(['-', np.inf, -np.inf], np.nan)  # Handle invalid values
     X = X.apply(pd.to_numeric, errors='coerce')
 
-    # Fill NaN values with mean but print warning if there are many
+    # Fill NaN values with mean
     nan_counts = X.isna().sum()
     if nan_counts.any():
         print("Warning: NaN counts in features: \n",
               nan_counts[nan_counts > 0])
     X = X.fillna(X.mean())
 
+    # Add position feature with encoding
+    pos_encoded = np.array([encode_position(pos) for pos in df['Pos']])
+    X_combined = np.hstack([X, pos_encoded])
+
     if is_training:
-        # Negative because lower pick numbers are better
         y = -df["Pick"].values
     else:
-        y = np.zeros(len(X))  # Dummy labels for test data
+        y = np.zeros(len(X_combined))
 
-    return X.values, y
+    return X_combined, y
 
 
 def train_model(model: nn.Module,
@@ -374,7 +432,7 @@ def main():
 
     if LOO:
         years = ["2006", "2007", "2008", "2009", "2010", "2011", "2012", "2013", "2014", "2015",
-                 "2016", "2017", "2018", "2019", "2020", "2021", "2022", "2023", "2024"]
+                 "2016", "2017", "2018", "2019", "2020", "2021", "2022", "2023", "2024", "2025"]
         errors = []
         for year in years:
             error = train_and_test_model(data_path, year, show_plots=False)
