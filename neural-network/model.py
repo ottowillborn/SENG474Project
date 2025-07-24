@@ -382,7 +382,7 @@ def main():
             errors.append(error)
 
         # Final report
-        print("\n-" * 40)
+        print("-" * 40)
         for year in years:
             print(f"Year {year} error: {errors[years.index(year)]:.2f}")
         print(f"Average error across all years: {np.mean(errors):.2f}")
