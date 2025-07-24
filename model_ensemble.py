@@ -7,8 +7,10 @@ import pandas as pd
 # Add the 'neural-network' directory to Python's search path
 sys.path.append(os.path.join(os.path.dirname(__file__), 'neural-network'))
 sys.path.append(os.path.join(os.path.dirname(__file__), 'normal-equation'))
+sys.path.append(os.path.join(os.path.dirname(__file__), 'xgboost'))
 from neural_network_model import train_and_test_model
 from normal_equation import train_and_test_normal_eq
+from gradient_boost import train_and_test_xgboost
 
 # Convert floating point picks to unique draft numbers
 def enforce_unique_picks(df: pd.DataFrame) -> pd.DataFrame:
@@ -21,15 +23,30 @@ def enforce_unique_picks(df: pd.DataFrame) -> pd.DataFrame:
     df["Pick Error"] = np.abs(df["Actual Pick"] - df["Predicted Pick"])
     return df
 
-def ensemble_predictions(df1: pd.DataFrame, df2: pd.DataFrame) -> pd.DataFrame:
-    # Merge on player name
-    merged = pd.merge(df1[["Player", "Actual Pick", "Predicted Pick"]],
-                      df2[["Player", "Predicted Pick"]],
-                      on="Player",
-                      suffixes=("_model1", "_model2"))
+def ensemble_predictions(df1: pd.DataFrame, df2: pd.DataFrame, df3: pd.DataFrame) -> pd.DataFrame:
+    # Merge pairwise on "Player"
+    merged = pd.merge(
+        df1[["Player", "Actual Pick", "Predicted Pick"]],
+        df2[["Player", "Predicted Pick"]],
+        on="Player",
+        suffixes=("_model1", "_model2")
+    )
+
+    merged = pd.merge(
+        merged,
+        df3[["Player", "Predicted Pick"]],
+        on="Player"
+    )
+
+    # Rename third model's prediction
+    merged = merged.rename(columns={"Predicted Pick": "Predicted Pick_model3"})
 
     # Average the predictions
-    merged["Ensembled Prediction"] = (merged["Predicted Pick_model1"] + merged["Predicted Pick_model2"]) / 2
+    merged["Ensembled Prediction"] = (
+        merged["Predicted Pick_model1"] +
+        merged["Predicted Pick_model2"] +
+        merged["Predicted Pick_model3"]
+    ) / 3
 
     # Assign unique draft positions
     sorted_indices = np.argsort(merged["Ensembled Prediction"].values)
@@ -65,16 +82,14 @@ def plot_predictions(results_df: pd.DataFrame, title: str = "Ensemble Model: Pre
     plt.show()
 
 def main():
-    _ , neural_net_pred = train_and_test_model("allUpdatedPlayerData/", "2025", show_plots=False)
+    TESTYEAR = 2016
+    _ , neural_net_pred = train_and_test_model("allUpdatedPlayerData/", f"{TESTYEAR}", show_plots=False)
     neural_net_pred = enforce_unique_picks(neural_net_pred)
-    norm_eq_pred = train_and_test_normal_eq("allUpdatedPlayerData/", "2025")
+    norm_eq_pred = train_and_test_normal_eq("allUpdatedPlayerData/", f"{TESTYEAR}")
+    xgb_pred = train_and_test_xgboost("allUpdatedPlayerData/", f"{TESTYEAR}")
 
-
-    print(neural_net_pred)
-    print(norm_eq_pred)
-
-    # Ensemble the two predictions
-    ensembled_df = ensemble_predictions(neural_net_pred, norm_eq_pred)
+    # Ensemble the 3 predictions
+    ensembled_df = ensemble_predictions(neural_net_pred, norm_eq_pred, xgb_pred)
 
     print("Ensembled Prediction Results:")
     print(ensembled_df)
