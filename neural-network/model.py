@@ -92,6 +92,18 @@ class NBADraftDataset(Dataset):
         return self.features[idx], self.labels[idx]
 
 
+def convert_height(ht_str):
+    """ Helper function to convert height safely """
+    try:
+        if pd.isna(ht_str) or ht_str == '':
+            return np.nan
+        feet, inches = ht_str.replace("'", "").replace(
+            '"', '').replace('-', ' ').split()
+        return int(feet) * 30.48 + int(inches) * 2.54
+    except:
+        return np.nan
+
+
 def load_and_preprocess_data(data_path: str, test_file: str) -> Tuple[pd.DataFrame, pd.DataFrame]:
     """Load and preprocess the NBA draft data"""
     logging.info("Loading and preprocessing data...")
@@ -111,25 +123,33 @@ def load_and_preprocess_data(data_path: str, test_file: str) -> Tuple[pd.DataFra
     combined_df = pd.concat(dfs, ignore_index=True)
     combined_df["Pick"] = combined_df["Pick"].replace(0, 61)
     combined_df["label"] = -combined_df["Pick"]
+    combined_df["HT"] = combined_df["HT"].apply(convert_height)
 
-    # Load test data
+    # Load and process test data
     test_path = os.path.join(data_path, test_file)
     test_df = pd.read_csv(test_path)
     test_df["Pick"] = test_df["Pick"].replace(0, 61)
+    test_df["HT"] = test_df["HT"].apply(convert_height)
 
     return combined_df, test_df
 
 
 def prepare_features(df: pd.DataFrame, is_training: bool = True) -> Tuple[np.ndarray, np.ndarray]:
     """Prepare features and labels for the model"""
-    desired_feats = ["WT", "Age_x", "GP", "TS%", "eFG%", "ORB%", "DRB%", "TRB%",
+    desired_feats = ["HT", "WT", "Age_x", "GP", "TS%", "eFG%", "ORB%", "DRB%", "TRB%",
                      "AST%", "TOV%", "STL%", "BLK%", "USG%", "Total S %", "PPR",
                      "PPS", "ORtg", "DRtg", "PER"]
 
     # Create feature matrix
     X = df[desired_feats].copy()
-    X = X.replace('-', pd.NA)
+    X = X.replace(['-', np.inf, -np.inf], np.nan)  # Handle more invalid values
     X = X.apply(pd.to_numeric, errors='coerce')
+
+    # Fill NaN values with mean but print warning if there are many
+    nan_counts = X.isna().sum()
+    if nan_counts.any():
+        print("Warning: NaN counts in features: \n",
+              nan_counts[nan_counts > 0])
     X = X.fillna(X.mean())
 
     if is_training:
@@ -337,13 +357,13 @@ def main():
     data_path = "../allUpdatedPlayerData/"
 
     # Test file for 2025 draft predictions
-    # train_and_test_model(data_path, "2025")
+    train_and_test_model(data_path, "2025")
 
     # LOOCV
-    years = ["2006", "2007", "2008", "2009", "2010", "2011", "2012", "2013", "2014", "2015",
-             "2016", "2017", "2018", "2019", "2020", "2021", "2022", "2023", "2024", "2025"]
-    for year in years:
-        train_and_test_model(data_path, year, show_plots=False)
+    # years = ["2006", "2007", "2008", "2009", "2010", "2011", "2012", "2013", "2014", "2015",
+    #          "2016", "2017", "2018", "2019", "2020", "2021", "2022", "2023", "2024", "2025"]
+    # for year in years:
+    #     train_and_test_model(data_path, year, show_plots=False)
 
 
 if __name__ == "__main__":
