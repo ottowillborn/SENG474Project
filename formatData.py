@@ -25,7 +25,7 @@ def create_formated_player_data(filename,test_file_name):
     combined_df = pd.concat(dfs, ignore_index=True)
     combined_df = combined_df.drop(columns=["Draft Trades", "Age_y", "Class", "Season", "School"])
     # 999 labels as not picked
-    combined_df["Pick"] = combined_df["Pick"].replace(0,999)
+    combined_df["Pick"] = combined_df["Pick"].replace(0,61)
     combined_df["label"] = -combined_df["Pick"] #make a new column label which is just negative pick 
 
     combined_df["Team_encoded"] = team_le.fit_transform(combined_df["Pre-Draft Team"]) #encodes pre draft teams into numbers

@@ -5,6 +5,7 @@ import sys
 import os
 import matplotlib.pyplot as plt
 from plotData import plot_data
+from formatData import create_formated_player_data
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import LabelEncoder
 from sklearn.ensemble import RandomForestRegressor
@@ -15,25 +16,6 @@ team_le = LabelEncoder()
 pos_le = LabelEncoder()
 
 
-# Preprocess and combine player data files
-def create_formated_player_data(filename):
-    pattern = os.path.join(path, "college_players_career_stats_*.csv")
-    all_files = glob.glob(pattern)
-    files = [f for f in all_files if not f.endswith(test_file_name)]
-    dfs = []
-    for file in files:
-        year = int(file.split("_")[-1].split(".")[0])
-        df = pd.read_csv(file)
-        df["Year"] = year
-        dfs.append(df)
-    combined_df = pd.concat(dfs, ignore_index=True)
-    combined_df = combined_df.drop(columns=["Draft Trades", "Age_y", "Class", "Season", "School"])
-    combined_df["Pick"] = combined_df["Pick"].replace(0, 999)
-    combined_df["label"] = -combined_df["Pick"]
-    combined_df["Team_encoded"] = team_le.fit_transform(combined_df["Pre-Draft Team"])
-    combined_df["Position_encoded"] = pos_le.fit_transform(combined_df["Pos"])
-    combined_df.to_csv(filename, index=False)
-    return combined_df
 
 # Usage check
 if len(sys.argv) != 2:
@@ -43,7 +25,7 @@ if len(sys.argv) != 2:
 test_file_name = sys.argv[1]
 
 # Load and preprocess data
-combined_df = create_formated_player_data("combined_player_data_with_labels.csv")
+combined_df = create_formated_player_data("combined_player_data_with_labels.csv",test_file_name)
 
 desired_feats = ["WT","Age_x","GP","TS%","eFG%","ORB%","DRB%","TRB%","AST%","TOV%",
                  "STL%","BLK%","USG%","Total S %","PPR","PPS","ORtg","DRtg","PER",
@@ -58,12 +40,15 @@ for col in x_vector.columns:
     x_vector[col] = pd.to_numeric(x_vector[col], errors="coerce")
 x_vector = x_vector.fillna(x_vector.mean())
 
+
+
 # Train Random Forest Regressor
 model = RandomForestRegressor(
     n_estimators=300,
     max_depth=12,
-    min_samples_split=5,
+    min_samples_split=4,
     min_samples_leaf=3,
+    max_features='sqrt',
     n_jobs=-1,
     random_state=42
 )
@@ -74,7 +59,7 @@ test_path = os.path.join(path, test_file_name)
 pre_tested_players = pd.read_csv(test_path)
 pre_tested_players = pre_tested_players.drop(columns=["Draft Trades", "Age_y", "Class", "Season", "School"])
 names_and_picks_pre_tested = pre_tested_players[["Player", "Pick"]].copy()
-pre_tested_players["Pick"] = pre_tested_players["Pick"].replace(0, 999)
+pre_tested_players["Pick"] = pre_tested_players["Pick"].replace(0, 61)
 pre_tested_players["label"] = -pre_tested_players["Pick"]
 pre_tested_players["Team_encoded"] = team_le.fit_transform(pre_tested_players["Pre-Draft Team"])
 pre_tested_players["Position_encoded"] = pos_le.fit_transform(pre_tested_players["Pos"])
@@ -98,6 +83,7 @@ tested_players.to_csv("TESTED.csv", index=False)
 names_and_picks_tested = tested_players[["Player", "RowIndex"]].copy()
 merged_names_and_picks = pd.merge(names_and_picks_tested, names_and_picks_pre_tested, on="Player", how="left")
 merged_names_and_picks = merged_names_and_picks.rename(columns={"RowIndex": "Predicted Pick", "Pick": "Actual Pick"})
+merged_names_and_picks["Actual Pick"] = merged_names_and_picks["Actual Pick"].replace(0, 61)
 merged_names_and_picks["Error (pick distance)"] = (merged_names_and_picks["Predicted Pick"] - merged_names_and_picks["Actual Pick"]).abs()
 
 # Show results
