@@ -287,6 +287,12 @@ def train_and_test_model(data_path: str, year: str, show_plots: bool = True) -> 
     X_train, X_val, y_train, y_val = train_test_split(
         X_train, y_train, test_size=0.2, random_state=42)
 
+    # Create datasets and dataloaders
+    scaler = StandardScaler()
+    X_train_scaled = scaler.fit_transform(X_train)
+    X_val_scaled = scaler.transform(X_val)
+    X_test_scaled = scaler.transform(X_test)
+
     # Enable cuDNN benchmarking and deterministic mode
     if torch.cuda.is_available():
         cudnn.benchmark = True
