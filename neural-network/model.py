@@ -187,7 +187,8 @@ def train_model(model: nn.Module,
     for size in subset_sizes:
         # Create subset of training data
         subset_indices = torch.randperm(total_size)[:size]
-        subset_train_data = torch.utils.data.Subset(train_loader.dataset, subset_indices)
+        subset_train_data = torch.utils.data.Subset(
+            train_loader.dataset, subset_indices)
         subset_train_loader = DataLoader(
             subset_train_data, batch_size=128, shuffle=True, pin_memory=True  # Enable pin_memory
         )
@@ -196,7 +197,8 @@ def train_model(model: nn.Module,
         train_loss = 0.0
         for _ in range(num_epochs // 5):  # Reduced number of epochs per subset
             for batch_X, batch_y in subset_train_loader:
-                batch_X, batch_y = batch_X.to(device, non_blocking=True), batch_y.to(device, non_blocking=True)  # Move data to GPU
+                batch_X, batch_y = batch_X.to(device, non_blocking=True), batch_y.to(
+                    device, non_blocking=True)  # Move data to GPU
                 optimizer.zero_grad()
                 outputs = model(batch_X)
                 loss = criterion(outputs, batch_y.view(-1, 1))
@@ -209,7 +211,8 @@ def train_model(model: nn.Module,
         val_loss = 0.0
         with torch.no_grad():
             for batch_X, batch_y in val_loader:
-                batch_X, batch_y = batch_X.to(device, non_blocking=True), batch_y.to(device, non_blocking=True)  # Move data to GPU
+                batch_X, batch_y = batch_X.to(device, non_blocking=True), batch_y.to(
+                    device, non_blocking=True)  # Move data to GPU
                 outputs = model(batch_X)
                 val_loss += criterion(outputs, batch_y.view(-1, 1)).item()
 
@@ -233,7 +236,8 @@ def evaluate_model(model: nn.Module, test_loader: DataLoader) -> np.ndarray:
         for batch_X, _ in test_loader:
             batch_X = batch_X.to(device, non_blocking=True)  # Move data to GPU
             outputs = model(batch_X)
-            predictions.extend(outputs.cpu().numpy())  # Move predictions back to CPU
+            # Move predictions back to CPU
+            predictions.extend(outputs.cpu().numpy())
 
     return np.array(predictions)
 
@@ -323,7 +327,8 @@ def train_and_test_model(data_path: str, year: str, show_plots: bool = True) -> 
     # Initialize and train model
     input_size = X_train.shape[1]
     hidden_sizes = [128, 64, 32]
-    model = NBADraftNet(input_size, hidden_sizes).to(device)  # Ensure model is on GPU
+    model = NBADraftNet(input_size, hidden_sizes).to(
+        device)  # Ensure model is on GPU
 
     train_losses, val_losses, train_sizes = train_model(
         model,
