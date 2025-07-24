@@ -4,6 +4,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import LabelEncoder
+from sklearn.preprocessing import StandardScaler
 import glob
 import os
 import sys
@@ -42,10 +43,14 @@ combined_df["Pick"] = combined_df["Pick"].replace(0, 61)
 test_data["Pick"] = test_data["Pick"].replace(0, 61)
 
 # desired features for training, these are the features we will use to train the model
-desired_feats = ["HT", "WT","Age_x","GP","TS%",                   
-            "eFG%","ORB%","DRB%","TRB%","AST%","TOV%",
-            "STL%","BLK%","USG%","Total S %","PPR",
-            "PPS","ORtg","DRtg","PER", "Team_encoded","Position_encoded"]
+# desired_feats = ["HT", "WT","Age_x","GP","TS%",                   
+#             "eFG%","ORB%","DRB%","TRB%","AST%","TOV%",
+#             "STL%","BLK%","USG%","Total S %","PPR",
+#             "PPS","ORtg","DRtg","PER", "Team_encoded","Position_encoded"]
+
+desired_feats = ["Age_x","TS%",                   
+            "eFG%","ORB%","DRB%","TRB%",
+            "ORtg","DRtg"]
 
 #Handling of team that is not in the combined df, but in the test df
 #Adding a dummy player with no stats, so label encoder has an "Unknown Team" value available
@@ -80,9 +85,6 @@ test_data["Position_encoded"] = pos_le.transform(test_data["Pos"])
 #Drop dummy player before training
 combined_df = combined_df[combined_df["Pick"] != 999]
 
-#checkpoint. this csv is all players from all training drafts, labeled with their actual draft pick, and their non-numerical features encoded
-combined_df.to_csv("combined_player_data_with_labels.csv", index=False) 
-
 # Convert height to inches
 def convert_height(height):
     try:
@@ -97,6 +99,7 @@ def convert_height(height):
     
 combined_df["HT"] = combined_df["HT"].apply(convert_height)
 test_data["HT"] = test_data["HT"].apply(convert_height)
+
 
 #create feature matrix and label vector
 x_vector = combined_df[desired_feats].copy()
@@ -118,6 +121,7 @@ for col in x_test.columns:
 # Fill missing values with column means
 x_vector = x_vector.fillna(0.1 * x_vector.mean()) 
 x_test = x_test.fillna(0.1 * x_vector.mean()) 
+
 
 #normal equation calculation
 def normal_equation(X, Y):
@@ -141,6 +145,30 @@ Y_train_np = np.array(y_vector)
 #Calculate parameters
 theta_normal = normal_equation(X_train_np, Y_train_np)
 
+#----------------------------------------------
+# This section just to find feature importance
+# Create copies for scaled
+# scaled_data = x_vector.copy()
+# scaled_labels = y_vector.copy()
+# #Scale data for feature importance
+# scaler = StandardScaler()
+# #Scale x input
+# columns_to_scale = scaled_data.columns.difference(['Player'])
+# scaled_data[columns_to_scale] = scaler.fit_transform(scaled_data[columns_to_scale])
+# #scale labels
+# y_scaler = StandardScaler()
+# y_scaled = y_scaler.fit_transform(scaled_labels.values.reshape(-1, 1)).flatten()
+# #for scaled values
+# x_train_scaled = np.array(scaled_data)
+# y_train_scaled = np.array(y_scaled)
+# # Find scaled parameters (Feature importance scores)
+# theta_scaled = normal_equation(x_train_scaled, y_train_scaled)
+# print(f"Scaled parameters:")
+# #print thetas
+# for val in theta_scaled:
+#     print(val)
+#---------------------------------------------
+
 # Make prediction
 y_pred = predict(x_test, theta_normal)
 
@@ -154,6 +182,10 @@ test_data_sorted["predicted_pick"] = np.minimum(test_data_sorted["predicted_pick
 # Find error (MAE)
 avg_error = np.mean(np.abs(test_data_sorted["Pick"] - test_data_sorted["predicted_pick"]))
 print(f"avg error: {avg_error}")
+
+# Find error (MSE)
+# avg_MSE = np.mean((test_data_sorted["Pick"] - test_data_sorted["predicted_pick"])**2)
+# print(f"avg MSE error: {avg_MSE}")
 
 
 # Scatter plot
