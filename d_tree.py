@@ -4,6 +4,7 @@ import glob
 import sys 
 import os
 from plotData import plot_data
+from formatData import create_formated_player_data
 import matplotlib.pyplot as plt
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import LabelEncoder
@@ -15,73 +16,6 @@ path = "playerData/"
 team_le = LabelEncoder()
 pos_le = LabelEncoder()
 
-def plot_data1(merged_names_and_picks):
-    # Scatter plot
-    print("Mean AVG pick error (for now this is a very unfavorably skewed metric):",merged_names_and_picks["Error (pick distance)"].mean())
-    plt.figure(figsize=(10, 8))
-    player_data_copy = []
-    index = 0
-    for _, row in merged_names_and_picks.iterrows():
-        if(index > 50):
-            break
-        player_data_copy.append(row)
-        index = index + 1
-    print("------------------")
-    print(player_data_copy)
-    player_data_copy = pd.DataFrame(player_data_copy)
-
-    plt.scatter(player_data_copy["Actual Pick"], player_data_copy["Predicted Pick"], alpha=0.8)
-
-    plt.plot([1, 60], [1, 60], linestyle='--', color='gray', label="Perfect Prediction")
-    index = 0
-    for _, row in merged_names_and_picks.iterrows():
-        #print(i)
-        if(index > 50):
-            break
-        plt.text(
-            row["Actual Pick"] + 0.5,  
-            row["Predicted Pick"] + 0.5,  
-            row["Player"],
-            fontsize=8
-        )
-        index = index + 1
-
-    plt.xlabel("Actual Pick")
-    plt.ylabel("Predicted Pick")
-    plt.title("Predicted vs. Actual NBA Draft Picks")
-    plt.legend()
-    plt.grid(True)
-    plt.tight_layout()
-    plt.show()
-
-def create_formated_player_data(filenmae):
-    #func: create_formated_player_data
-    #args:
-    #Docs:
-    pattern = os.path.join(path, "college_players_career_stats_*.csv")
-    all_files = glob.glob(pattern)
-
-    files = [f for f in all_files if not f.endswith(test_file_name)] #excluding the test file
-
-    dfs = []
-    for file in files:
-        year = int(file.split("_")[-1].split(".")[0])  
-        df = pd.read_csv(file)
-        df["Year"] = year  
-        dfs.append(df)
-
-    #MEGA FRAME
-    combined_df = pd.concat(dfs, ignore_index=True)
-    combined_df = combined_df.drop(columns=["Draft Trades", "Age_y", "Class", "Season", "School"])
-    # 999 labels as not picked
-    combined_df["Pick"] = combined_df["Pick"].replace(0,999)
-    combined_df["label"] = -combined_df["Pick"] #make a new column label which is just negative pick 
-
-    combined_df["Team_encoded"] = team_le.fit_transform(combined_df["Pre-Draft Team"]) #encodes pre draft teams into numbers
-    combined_df["Position_encoded"] = pos_le.fit_transform(combined_df["Pos"]) #encodes positions into numbers
-
-    combined_df.to_csv(filenmae, index=False) 
-    return combined_df
 
 if len(sys.argv) != 2:
     print("Usage: python script.py <test_csv_filename>")
@@ -89,7 +23,7 @@ if len(sys.argv) != 2:
 
 test_file_name = sys.argv[1]
 
-combined_df = create_formated_player_data("combined_player_data_with_labels.csv")
+combined_df = create_formated_player_data("combined_player_data_with_labels.csv",test_file_name)
 
 
 desired_feats = ["WT","Age_x","GP","TS%",                   #add height, omit noationality for later, POS ENCODED
@@ -182,7 +116,7 @@ merged_names_and_picks = pd.merge(
 )
 
 merged_names_and_picks = merged_names_and_picks.rename(columns={"RowIndex": "Predicted Pick", "Pick": "Actual Pick"})
-
+merged_names_and_picks["Actual Pick"] = merged_names_and_picks["Actual Pick"].replace(0, 61)
 merged_names_and_picks["Error (pick distance)"] = (merged_names_and_picks["Predicted Pick"] - merged_names_and_picks["Actual Pick"]).abs()
 
 print(merged_names_and_picks)
