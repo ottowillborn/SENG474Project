@@ -12,7 +12,7 @@ from sklearn.datasets import load_iris
 from sklearn.tree import DecisionTreeRegressor
 
 
-path = "playerData/"
+path = "allUpdatedPlayerData/"
 team_le = LabelEncoder()
 pos_le = LabelEncoder()
 
@@ -53,11 +53,13 @@ model = DecisionTreeRegressor(max_depth=6, random_state=42)
 model.fit(x_vector, y_vector)
 
 
-#Format Test data HARDCODED FOR 2022 this line is 
+#Format Test data HARDCODED FOR 2022 this line is
+files_to_test = [test_file_name,"all_players_career_stats_2010.csv","all_players_career_stats_2015.csv","all_players_career_stats_2020.csv","all_players_career_stats_2025.csv"]
+testing_data = pd.DataFrame()
 test_path = os.path.join(path, test_file_name)
 pre_tested_players = pd.read_csv(test_path)
 
-pre_tested_players = pre_tested_players.drop(columns=["Draft Trades", "Age_y", "Class", "Season", "School"])
+
 
 names_and_picks_pre_tested = pre_tested_players[["Player", "Pick"]].copy() #keep names and indexes 
 
@@ -72,15 +74,18 @@ pre_tested_players.replace('-', pd.NA, inplace=True)
 
 pre_tested_player_NAMES_SAVED = pre_tested_players["Player"].copy() #na
 
+
+
 # Convert all columns to numeric, forcing anything bad to NaN
 for col in pre_tested_players.columns:
     pre_tested_players[col] = pd.to_numeric(pre_tested_players[col], errors="coerce")
-# Fill missing values with column means (or medians, or zero)
-pre_tested_players = pre_tested_players.fillna(pre_tested_players.mean()) 
+    # Fill missing values with column means (or medians, or zero)
+    pre_tested_players = pre_tested_players.fillna(pre_tested_players.mean()) 
 
-pre_tested_players.to_csv("PRE-TESTED.csv", index=False) 
+    pre_tested_players.to_csv("PRE-TESTED.csv", index=False) 
 
-tested_players = pre_tested_players[desired_feats].copy()
+    tested_players = pre_tested_players[desired_feats].copy()
+    pd.concat([testing_data,tested_players],ignore_index=True)
 
 #TESTING
 #Making prediction
