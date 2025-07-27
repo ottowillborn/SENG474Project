@@ -2,17 +2,26 @@ import pandas as pd
 from sklearn.preprocessing import LabelEncoder
 import os
 import glob
-path = "playerData/"
+path = "../allUpdatedPlayerData/"
 def create_formated_player_data(filename,test_file_name):
     #func: create_formated_player_data
     #args:
     #Docs:
     team_le = LabelEncoder()
     pos_le = LabelEncoder()
-    pattern = os.path.join(path, "college_players_career_stats_*.csv")
+    pattern = os.path.join(path, "all_players_career_stats_*.csv")
     all_files = glob.glob(pattern)
-
-    files = [f for f in all_files if not f.endswith(test_file_name)] #excluding the test file
+    #exclude the files: 2010,2015,2020,2025
+    #files = [f for f in all_files if not f.endswith(test_file_name)] #excluding the test file
+    files = []
+    files_to_exclude = [test_file_name,"all_players_career_stats_2010.csv","all_players_career_stats_2015.csv","all_players_career_stats_2020.csv","all_players_career_stats_2025.csv"]
+    for f in all_files:
+        if f.split("/")[1] not in files_to_exclude:
+            files.append(f)
+        else:
+            print(f)
+        
+    
 
     dfs = []
     for file in files:
@@ -23,9 +32,8 @@ def create_formated_player_data(filename,test_file_name):
 
     #MEGA FRAME
     combined_df = pd.concat(dfs, ignore_index=True)
-    combined_df = combined_df.drop(columns=["Draft Trades", "Age_y", "Class", "Season", "School"])
     # 999 labels as not picked
-    combined_df["Pick"] = combined_df["Pick"].replace(0,999)
+    combined_df["Pick"] = combined_df["Pick"].replace(0,61)
     combined_df["label"] = -combined_df["Pick"] #make a new column label which is just negative pick 
 
     combined_df["Team_encoded"] = team_le.fit_transform(combined_df["Pre-Draft Team"]) #encodes pre draft teams into numbers
@@ -33,5 +41,3 @@ def create_formated_player_data(filename,test_file_name):
 
     combined_df.to_csv(filename, index=False) 
     return combined_df
-def format_training_data():
-    pass
