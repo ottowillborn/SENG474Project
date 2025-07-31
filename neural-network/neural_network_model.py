@@ -186,20 +186,42 @@ def calculate_derived_features(df: pd.DataFrame) -> pd.DataFrame:
 
 def prepare_features(df: pd.DataFrame, is_training: bool = True) -> Tuple[np.ndarray, np.ndarray]:
     """Prepare features and labels for the model"""
+
     # Base features
-    desired_feats = ["HT", "WT", "Age_x", "GP", "TS%", "eFG%", "ORB%", "DRB%", "TRB%",
-                     "AST%", "TOV%", "STL%", "BLK%", "USG%", "ORtg", "DRtg", "PER"]
+    # Define the list of desired features (one per line, with explanatory comments)
+    desired_feats = [
+        "HT",     # Height in centimeters
+        "WT",     # Weight in pounds
+        "Age_x",  # Age in years
+        "GP",     # Games played
+        # "TS%",    # True Shooting Percentage
+        # "eFG%",   # Effective Field Goal Percentage
+        "ORB%",   # Offensive Rebound Percentage
+        "DRB%",   # Defensive Rebound Percentage
+        "TRB%",   # Total Rebound Percentage
+        "AST%",   # Assist Percentage
+        "TOV%",   # Turnover Percentage
+        "STL%",   # Steal Percentage
+        "BLK%",   # Block Percentage
+        "USG%",   # Usage Percentage
+        # "ORtg",   # Offensive Rating (points produced per 100 possessions)
+        # "DRtg",   # Defensive Rating (points allowed per 100 possessions)
+        # "PER",    # Player Efficiency Rating
+        # "Total S %",  # Combined shooting efficiency (dropped due to multicollinearity)
+        # "PPR",        # Points per Rebound (dropped as redundant)
+        # "PPS"         # Points per Shot (dropped as redundant)
+    ]
 
     # Add derived features
-    df = calculate_derived_features(df)
-    desired_feats.extend(['AST/TOV', 'BMI'])
+    # df = calculate_derived_features(df)
+    # desired_feats.extend(['AST/TOV', 'BMI'])
 
     # Create feature matrix
     X = df[desired_feats].copy()
     X = X.replace(['-', np.inf, -np.inf], np.nan)  # Handle invalid values
     X = X.apply(pd.to_numeric, errors='coerce')
 
-    # Fill NaN values with mean
+  # Fill NaN values with mean
     nan_counts = X.isna().sum()
     if nan_counts.any():
         print("Warning: NaN counts in features: \n",
@@ -314,23 +336,29 @@ def plot_results(actual_picks: np.ndarray, predicted_picks: np.ndarray, player_n
     plt.legend()
     plt.grid(True)
     plt.tight_layout()
-    plt.show()
+    plt.savefig("predicted_vs_actual_picks.png")
+    plt.close()
 
 
 def plot_learning_curves(train_sizes: List[int], train_losses: List[float], val_losses: List[float]):
-    """Plot the learning curves showing training and validation loss vs training size"""
+    """Plot the learning curves showing training and validation pick distance vs training size"""
     plt.figure(figsize=(10, 6))
-    plt.plot(train_sizes, train_losses, 'o-',
-             color='blue', label='Training Loss')
-    plt.plot(train_sizes, val_losses, 'o-',
-             color='green', label='Validation Loss')
+    # Convert losses to pick distances (since loss is MSE of negative pick numbers)
+    train_pick_distances = [loss**0.5 for loss in train_losses]  # sqrt of MSE
+    val_pick_distances = [loss**0.5 for loss in val_losses]      # sqrt of MSE
+
+    plt.plot(train_sizes, train_pick_distances, 'o-',
+             color='blue', label='Training Pick Distance')
+    plt.plot(train_sizes, val_pick_distances, 'o-',
+             color='green', label='Validation Pick Distance')
     plt.title("Model Learning Curves")
-    plt.xlabel("Number of Training Examples")
-    plt.ylabel("Loss")
+    plt.xlabel("Training Set Size")
+    plt.ylabel("Average Pick Distance Error")
     plt.grid(True, linestyle='--', alpha=0.7)
     plt.legend(loc='best')
     plt.tight_layout()
-    plt.show()
+    plt.savefig("learning_curves.png")
+    plt.close()
 
 
 def train_and_test_model(data_path: str, year: str, show_plots: bool = True) -> float:
@@ -396,6 +424,7 @@ def train_and_test_model(data_path: str, year: str, show_plots: bool = True) -> 
 
     # Plot learning curves
     if (show_plots):
+        print("Plotting learning curves...")
         plot_learning_curves(train_sizes, train_losses, val_losses)
 
     # Make predictions
@@ -436,8 +465,8 @@ def main():
     LOO = sys.argv[1] == "-loocv" if len(sys.argv) > 1 else False
 
     if LOO:
-        years = ["2006", "2007", "2008", "2009", "2010", "2011", "2012", "2013", "2014", "2015",
-                 "2016", "2017", "2018", "2019", "2020", "2021", "2022", "2023", "2024", "2025"]
+        years = ["2006", "2007", "2008", "2009", "2011", "2012", "2013", "2014",
+                 "2016", "2017", "2018", "2019", "2021", "2022", "2023", "2024", ]
         errors = []
         for year in years:
             error, _ = train_and_test_model(data_path, year, show_plots=False)
