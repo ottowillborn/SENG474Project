@@ -284,17 +284,27 @@ def train_model(model: nn.Module,
                 optimizer.step()
                 train_loss += loss.item()
 
-        # Validation phase
+        # Calculate training error on current subset
         model.eval()
+        train_subset_loss = 0.0
+        with torch.no_grad():
+            for batch_X, batch_y in subset_train_loader:
+                batch_X, batch_y = batch_X.to(device, non_blocking=True), batch_y.to(
+                    device, non_blocking=True)
+                outputs = model(batch_X)
+                train_subset_loss += criterion(outputs,
+                                               batch_y.view(-1, 1)).item()
+
+        # Calculate validation error on the whole validation set
         val_loss = 0.0
         with torch.no_grad():
             for batch_X, batch_y in val_loader:
                 batch_X, batch_y = batch_X.to(device, non_blocking=True), batch_y.to(
-                    device, non_blocking=True)  # Move data to GPU
+                    device, non_blocking=True)
                 outputs = model(batch_X)
                 val_loss += criterion(outputs, batch_y.view(-1, 1)).item()
 
-        train_losses.append(train_loss / len(subset_train_loader))
+        train_losses.append(train_subset_loss / len(subset_train_loader))
         val_losses.append(val_loss / len(val_loader))
         train_sizes.append(size)
 
