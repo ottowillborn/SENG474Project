@@ -371,7 +371,28 @@ def plot_learning_curves(train_sizes: List[int], train_losses: List[float], val_
     plt.close()
 
 
-def train_and_test_model(data_path: str, year: str, show_plots: bool = True) -> float:
+def calculate_top_10_error(actual_picks: np.ndarray, predicted_picks: np.ndarray) -> float:
+    """Calculate mean absolute error for top 10 picks only"""
+    top_10_mask = actual_picks <= 10
+    if not any(top_10_mask):
+        return 0.0
+    top_10_error = np.abs(
+        predicted_picks[top_10_mask] - actual_picks[top_10_mask])
+    return np.mean(top_10_error)
+
+
+def calculate_top_10_hit_rate(actual_picks: np.ndarray, predicted_picks: np.ndarray) -> float:
+    """Calculate percentage of correctly identified players in top 10"""
+    # Get indices of actual top 10 picks
+    actual_top_10 = set(np.where(actual_picks <= 10)[0])
+    # Get indices of predicted top 10 picks
+    pred_top_10 = set(np.argsort(predicted_picks)[:10])
+    # Calculate intersection (correctly identified players)
+    correct_picks = len(actual_top_10.intersection(pred_top_10))
+    return (correct_picks / 10) * 100
+
+
+def train_and_test_model(data_path: str, year: str, show_plots: bool = True) -> Tuple[float, float, float, pd.DataFrame]:
     test_file = f"all_players_career_stats_{year}.csv"
 
     # Load and preprocess data
@@ -452,14 +473,20 @@ def train_and_test_model(data_path: str, year: str, show_plots: bool = True) -> 
     # Calculate and display error metrics
     pick_error = np.abs(predicted_picks - actual_picks)
     mean_error = np.mean(pick_error)
-    print(f"Mean absolute pick error for test year {year}: {mean_error:.2f}\n")
+    top_10_error = calculate_top_10_error(actual_picks, predicted_picks)
+    top_10_hit_rate = calculate_top_10_hit_rate(actual_picks, predicted_picks)
+    print(f"Mean absolute pick error for test year {year}: {mean_error:.2f}")
+    print(f"Top 10 picks mean absolute error: {top_10_error:.2f}")
+    print(
+        f"Top 10 picks hit rate (correct predictions): {top_10_hit_rate:.1f}%\n")
+
     results_df = pd.DataFrame({
         "Player": player_names,
         "Actual Pick": actual_picks,
         "Predicted Pick": predicted_picks,
         "Pick Error": pick_error
     })
-    return mean_error, results_df
+    return mean_error, top_10_error, top_10_hit_rate, results_df
 
 
 def plot_feature_performance_curve(data_path: str, year: str):
@@ -544,23 +571,38 @@ def main():
     LOO = sys.argv[1] == "-loocv" if len(sys.argv) > 1 else False
 
     if LOO:
-        years = ["2006", "2007", "2008", "2009", "2011", "2012", "2013", "2014",
-                 "2016", "2017", "2018", "2019", "2021", "2022", "2023", "2024", ]
+        # years = ["2006", "2007", "2008", "2009", "2011", "2012", "2013", "2014",
+        #          "2016", "2017", "2018", "2019", "2021", "2022", "2023", "2024"]
+
+        years = ["2010", "2015", "2020", "2025"]
+
         errors = []
+        top_10_errors = []
+        top_10_hit_rates = []
         for year in years:
-            error, _ = train_and_test_model(data_path, year, show_plots=False)
+            error, top_10_error, hit_rate, _ = train_and_test_model(
+                data_path, year, show_plots=False)
             errors.append(error)
+            top_10_errors.append(top_10_error)
+            top_10_hit_rates.append(hit_rate)
 
         # Final report
         print("-" * 40)
-        for year in years:
-            print(f"Year {year} error: {errors[years.index(year)]:.2f}")
+        for i, year in enumerate(years):
+            print(
+                f"Year {year} - Overall error: {errors[i]:.2f}, Top 10 error: {top_10_errors[i]:.2f}, Hit rate: {top_10_hit_rates[i]:.1f}%")
         print(f"Average error across all years: {np.mean(errors):.2f}")
+        print(
+            f"Average top 10 error across all years: {np.mean(top_10_errors):.2f}")
+        print(f"Average top 10 hit rate: {np.mean(top_10_hit_rates):.1f}%")
         print(f"Standard deviation of error: {np.std(errors):.2f}")
+        print(
+            f"Standard deviation of top 10 error: {np.std(top_10_errors):.2f}")
+        print(
+            f"Standard deviation of hit rate: {np.std(top_10_hit_rates):.1f}%")
 
     else:
         train_and_test_model(data_path, "2025", show_plots=True)
-        # Add feature performance analysis
         # plot_feature_performance_curve(data_path, "2025")
 
 
