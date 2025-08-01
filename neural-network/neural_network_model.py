@@ -184,37 +184,37 @@ def calculate_derived_features(df: pd.DataFrame) -> pd.DataFrame:
     return df
 
 
-def prepare_features(df: pd.DataFrame, is_training: bool = True) -> Tuple[np.ndarray, np.ndarray]:
+def prepare_features(df: pd.DataFrame, is_training: bool = True, n_features: int = None) -> Tuple[np.ndarray, np.ndarray]:
     """Prepare features and labels for the model"""
 
     # Base features
     # Define the list of desired features (one per line, with explanatory comments)
     desired_feats = [
-        "HT",     # Height in centimeters
-        "WT",     # Weight in pounds
-        "Age_x",  # Age in years
-        "GP",     # Games played
-        # "TS%",    # True Shooting Percentage
-        # "eFG%",   # Effective Field Goal Percentage
-        "ORB%",   # Offensive Rebound Percentage
-        "DRB%",   # Defensive Rebound Percentage
-        "TRB%",   # Total Rebound Percentage
-        "AST%",   # Assist Percentage
-        "TOV%",   # Turnover Percentage
-        "STL%",   # Steal Percentage
-        "BLK%",   # Block Percentage
-        "USG%",   # Usage Percentage
-        # "ORtg",   # Offensive Rating (points produced per 100 possessions)
-        # "DRtg",   # Defensive Rating (points allowed per 100 possessions)
-        # "PER",    # Player Efficiency Rating
-        # "Total S %",  # Combined shooting efficiency (dropped due to multicollinearity)
-        # "PPR",        # Points per Rebound (dropped as redundant)
-        # "PPS"         # Points per Shot (dropped as redundant)
+        "Age_x",   # Player  Age
+        "HT",      # Player Height
+        "WT",
+        "PER",     # Player Efficiency Rating
+        "TS%",     # True Shooting Percentage
+        "TRB%",    # Total Rebound Percentage
+        "eFG%",    # Effective Field Goal Percentage
+        "DRB%",    # Defensive Rebound Percentage
+        "ORB%",    # Offensive Rebound Percentage
+        "ORtg",    # Offensive Rating
+        "DRtg",    # Defensive Rating
+        "PPS",     # Points Per Shot
+        "USG%",    # Usage Percentage
+        "GP",
+        "AST%",
+        "TOV%",
+        "STL%",
+        "BLK%",
+        "Total S %",
+        "PPR"
     ]
 
-    # Add derived features
-    # df = calculate_derived_features(df)
-    # desired_feats.extend(['AST/TOV', 'BMI'])
+    # If n_features is specified, use only top n features
+    if n_features is not None:
+        desired_feats = desired_feats[:n_features]
 
     # Create feature matrix
     X = df[desired_feats].copy()
@@ -462,6 +462,75 @@ def train_and_test_model(data_path: str, year: str, show_plots: bool = True) -> 
     return mean_error, results_df
 
 
+def plot_feature_performance_curve(data_path: str, year: str):
+    """Plot model performance with different numbers of features"""
+    test_file = f"all_players_career_stats_{year}.csv"
+    train_df, test_df = load_and_preprocess_data(data_path, test_file)
+
+    # Test different feature counts from 6 to all features
+    feature_counts = range(6, 21, 1)  # [6, 8, 10, ..., 20]
+    mean_errors = []
+
+    for n_features in feature_counts:
+        # Prepare features with limited feature count
+        X_train, y_train = prepare_features(
+            train_df, is_training=True, n_features=n_features)
+        X_test, _ = prepare_features(
+            test_df, is_training=False, n_features=n_features)
+
+        # Split training data
+        X_train, X_val, y_train, y_val = train_test_split(
+            X_train, y_train, test_size=0.2, random_state=42)
+
+        # Scale data
+        scaler = StandardScaler()
+        X_train_scaled = scaler.fit_transform(X_train)
+        X_val_scaled = scaler.transform(X_val)
+        X_test_scaled = scaler.transform(X_test)
+
+        # Setup datasets and model
+        device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+        train_dataset = NBADraftDataset(torch.FloatTensor(
+            X_train_scaled), torch.FloatTensor(y_train))
+        val_dataset = NBADraftDataset(torch.FloatTensor(
+            X_val_scaled), torch.FloatTensor(y_val))
+        test_dataset = NBADraftDataset(torch.FloatTensor(X_test_scaled),
+                                       torch.FloatTensor(np.zeros(len(X_test_scaled))))
+
+        train_loader = DataLoader(
+            train_dataset, batch_size=128, shuffle=True, pin_memory=True)
+        val_loader = DataLoader(val_dataset, batch_size=128, pin_memory=True)
+        test_loader = DataLoader(test_dataset, batch_size=128, pin_memory=True)
+
+        # Initialize and train model
+        input_size = X_train.shape[1]
+        hidden_sizes = [128, 64, 32]
+        model = NBADraftNet(input_size, hidden_sizes).to(device)
+
+        # Train model with reduced epochs for faster experimentation
+        train_losses, val_losses, _ = train_model(model, train_loader, val_loader,
+                                                  num_epochs=50, learning_rate=0.001)
+
+        # Evaluate model
+        predictions = evaluate_model(model, test_loader)
+        predicted_picks = -predictions.flatten()
+        actual_picks = test_df["Pick"].values
+        mean_error = np.mean(np.abs(predicted_picks - actual_picks))
+        mean_errors.append(mean_error)
+
+        print(f"Features: {n_features}, Mean Error: {mean_error:.2f}")
+
+    # Plot feature performance curve
+    plt.figure(figsize=(10, 6))
+    plt.plot(feature_counts, mean_errors, 'o-', linewidth=2, markersize=8)
+    plt.xlabel('Number of Features')
+    plt.ylabel('Mean Absolute Pick Error')
+    plt.title('Model Performance vs Number of Features')
+    plt.grid(True)
+    plt.savefig("feature_performance_curve.png")
+    plt.close()
+
+
 def main():
     # Enable logging
     # logging.basicConfig(level=logging.INFO)
@@ -491,6 +560,8 @@ def main():
 
     else:
         train_and_test_model(data_path, "2025", show_plots=True)
+        # Add feature performance analysis
+        plot_feature_performance_curve(data_path, "2020")
 
 
 if __name__ == "__main__":
