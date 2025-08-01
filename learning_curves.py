@@ -38,9 +38,10 @@ test_data = combined_df[combined_df["Year"].isin(test_years)].copy()
 
 # desired features for training, these are the features we will use to train the model
 # This is features for normal equation, update them based on model
-desired_feats = ["HT","Age_x","TS%",                   
-            "eFG%","ORB%","DRB%","TRB%","USG%",
-            "PPS","ORtg","DRtg","PER"]
+desired_feats = ["WT","Age_x","GP","TS%",                   
+            "eFG%","ORB%","DRB%","TRB%","AST%","TOV%",
+            "STL%","BLK%","USG%","Total S %","PPR",
+            "PPS","ORtg","DRtg","PER", "Team_encoded","Position_encoded"]
 
 # Convert height to inches
 def convert_height(height):

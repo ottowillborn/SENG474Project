@@ -7,7 +7,8 @@ import numpy as np
 # Also change model name in line 18
 # ************** 
 
-years = list(range(2006, 2023))
+years = ['2006', '2007', '2008', '2009', '2011', '2012', '2013', '2014', '2016', '2017', '2018', '2019', '2021', '2022', '2023', '2024']
+
 results = []
 
 #Run for each year, extract error for each year
@@ -15,11 +16,12 @@ for year in years:
     print(f"Running for {year}")
     result = subprocess.run(
         # Change name of model below to run for different models
-        ["python", "normal_equation.py", f"all_players_career_stats_{year}.csv"],
+        ["python", "xgboost/gradient_boost.py", f"all_players_career_stats_{year}.csv"],
         stdout = subprocess.PIPE,
         stderr = subprocess.STDOUT,
         text=True
     )
+    print(result)
 
     output = result.stdout.strip()
     results.append(output)
@@ -27,6 +29,7 @@ for year in years:
 #make list of all the errors
 errors = []
 for item in results:
+    print(item)
     value = float(item.split(": ")[1])
     errors.append(value)
 
