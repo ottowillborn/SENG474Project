@@ -194,6 +194,8 @@ def prepare_features(df: pd.DataFrame, is_training: bool = True, n_features: int
         "HT",      # Player Height
         "WT",
         "PER",     # Player Efficiency Rating
+        "PPS",     # Points Per Shot
+        "AST%",
         "TS%",     # True Shooting Percentage
         "TRB%",    # Total Rebound Percentage
         "eFG%",    # Effective Field Goal Percentage
@@ -201,10 +203,8 @@ def prepare_features(df: pd.DataFrame, is_training: bool = True, n_features: int
         "ORB%",    # Offensive Rebound Percentage
         "ORtg",    # Offensive Rating
         "DRtg",    # Defensive Rating
-        "PPS",     # Points Per Shot
         "USG%",    # Usage Percentage
         "GP",
-        "AST%",
         "TOV%",
         "STL%",
         "BLK%",
@@ -468,7 +468,7 @@ def plot_feature_performance_curve(data_path: str, year: str):
     train_df, test_df = load_and_preprocess_data(data_path, test_file)
 
     # Test different feature counts from 6 to all features
-    feature_counts = range(6, 21, 1)  # [6, 8, 10, ..., 20]
+    feature_counts = range(1, 21, 1)  # [6, 8, 10, ..., 20]
     mean_errors = []
 
     for n_features in feature_counts:
@@ -561,7 +561,7 @@ def main():
     else:
         train_and_test_model(data_path, "2025", show_plots=True)
         # Add feature performance analysis
-        plot_feature_performance_curve(data_path, "2020")
+        # plot_feature_performance_curve(data_path, "2025")
 
 
 if __name__ == "__main__":
